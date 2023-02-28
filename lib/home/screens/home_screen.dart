@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
@@ -55,7 +57,24 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       ),
       appBar: AppBar(
         title: const Text("Flutter Starter"),
+        actions: [
+          GestureDetector(
+            onTap: _logout,
+            child: Row(
+              children: const [
+                Text("Log-out"),
+                Icon(Icons.logout_outlined),
+              ],
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  Future<void> _logout() async {
+    _controller.logout().then((value) {
+      Navigator.pushReplacementNamed(context, '/login');
+    });
   }
 }

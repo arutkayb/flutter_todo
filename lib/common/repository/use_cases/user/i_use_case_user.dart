@@ -1,7 +1,5 @@
-import 'package:flutter_starter/common/models/user.dart';
-
 abstract class IUseCaseUser {
-  Future<User?> getUser();
+  bool isUserLoggedIn();
 
-  Future<User?> saveUser(User user);
+  Future<void> logout();
 }

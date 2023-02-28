@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+void showSafeSnackBar(BuildContext context,
+    {required String content, Duration? duration}) {
+  if (context.mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(content),
+        behavior: SnackBarBehavior.floating,
+        duration: duration ?? const Duration(seconds: 1),
+      ),
+    );
+  }
+}
+
 void showSafeDialog(BuildContext context,
     {required String title, required String content}) {
   if (context.mounted) {

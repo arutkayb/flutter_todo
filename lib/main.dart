@@ -5,6 +5,9 @@ import 'package:flutter_starter/home/controllers/home_screen_cubit.dart';
 import 'package:flutter_starter/home/controllers/home_screen_state.dart';
 import 'package:flutter_starter/home/screens/home_screen.dart';
 import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/login/controllers/login_screen_cubit.dart';
+import 'package:flutter_starter/login/controllers/login_screen_state.dart';
+import 'package:flutter_starter/login/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +24,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Starter',
       theme: primaryTheme,
-      initialRoute: '/home',
+      initialRoute: '/login',
       routes: {
+        '/login': (context) {
+          return BlocProvider<LoginScreenCubit>(
+            create: (BuildContext context) => LoginScreenCubit(
+              const LoginScreenState(),
+            ),
+            child: const LoginScreen(),
+          );
+        },
         '/home': (context) {
           return BlocProvider<HomeScreenCubit>(
             create: (BuildContext context) => HomeScreenCubit(

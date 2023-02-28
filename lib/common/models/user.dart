@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'user.g.dart';
 
-@JsonSerializable(fieldRename:FieldRename.snake)
+@JsonSerializable()
 class User {
   // primary key
   String? id;
-
+  String? email;
   User();
 
   factory User.fromJson(Map<String, dynamic> json) =>

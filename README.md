@@ -1,6 +1,4 @@
-# flutter_starter
-
-Flutter ToDo app
+# Flutter ToDo app
 
 1. A kanban board for tasks, where users can create, edit, and move tasks between
    different columns (e.g. "To Do", "In Progress", "Done").
@@ -10,14 +8,19 @@ Flutter ToDo app
    was completed.
 4. A way to export data to CSV file
 
-# How to run
+## How to run
 
 You need to configure a Firebase Project to run the project (https://firebase.google.com/docs/flutter/setup)
 
 1. If you haven't already, install the Firebase CLI. 
-2. Log into Firebase using your Google account by running the following command:
+2. Create a new project on Firebase Dashboard for this app
+3. Log into Firebase using your Google account by running the following command:
 `firebase login`
-3. Install the FlutterFire CLI by running the following command from any directory:
+4. Install the FlutterFire CLI by running the following command from any directory:
 `dart pub global activate flutterfire_cli`
-4. From your Flutter project directory, run the following command to start the app configuration workflow:
+5. From your Flutter project directory, run the following command to start the app configuration workflow:
 `flutterfire configure`
+
+## Internal
+### Architecture
+![ER Diagram](https://github.com/arutkayb/flutter_todo/blob/main/assets/images/acthitecture.png?raw=true)

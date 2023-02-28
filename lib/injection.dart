@@ -1,14 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_starter/common/repository/local/i_local_data_manager.dart';
 import 'package:flutter_starter/common/repository/local/local_data_manager.dart';
-import 'package:flutter_starter/common/repository/mock/mock_local_data_manager.dart';
-import 'package:flutter_starter/common/repository/mock/mock_remote_data_manager.dart';
-import 'package:flutter_starter/common/repository/mock/mock_use_case_user.dart';
 import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/remote_data_manager.dart';
 import 'package:flutter_starter/common/repository/use_cases/user/i_use_case_user.dart';
 import 'package:flutter_starter/common/repository/use_cases/user/use_case_user.dart';
 import 'package:flutter_starter/firebase_options.dart';
+import 'package:flutter_starter/mock/repository/mock_local_data_manager.dart';
+import 'package:flutter_starter/mock/repository/mock_remote_data_manager.dart';
+import 'package:flutter_starter/mock/repository/mock_use_case_user.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -26,6 +27,8 @@ Future _configureReal() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  FirebaseDatabase.instance.setPersistenceEnabled(true);
 
   locator.registerSingleton<ILocalDataManager>(LocalDataManager());
   locator.registerSingleton<IRemoteDataManager>(RemoteDataManager());

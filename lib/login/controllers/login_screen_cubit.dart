@@ -8,7 +8,7 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
 
   LoginScreenCubit(super.initialState);
 
-  bool isLoggedIn() {
+  Future<bool> isLoggedIn() {
     return _useCaseUser.isUserLoggedIn();
   }
 }

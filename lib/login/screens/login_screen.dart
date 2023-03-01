@@ -54,9 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _checkLogin() {
-    if (_controller.isLoggedIn()) {
-      Navigator.pushReplacementNamed(context, '/home');
-    }
+    _controller.isLoggedIn().then((value) {
+      if (value) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    }).onError((error, stackTrace) {
+      //TODO: take action
+      debugPrint(stackTrace.toString());
+    });
   }
 
   void _signUpAction() {

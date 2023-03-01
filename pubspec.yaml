@@ -25,10 +25,8 @@ dependencies:
   firebase_database: ^10.0.14
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   integration_test:
+  flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0

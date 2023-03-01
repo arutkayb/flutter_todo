@@ -1,3 +1,5 @@
+[![Flutter unit test](https://github.com/arutkayb/flutter_todo/actions/workflows/github-actions-demo.yml/badge.svg)](https://github.com/arutkayb/flutter_todo/actions/workflows/github-actions-demo.yml)
+
 # Flutter ToDo app
 
 1. A kanban board for tasks, where users can create, edit, and move tasks between
@@ -24,3 +26,7 @@ You need to configure a Firebase Project to run the project (https://firebase.go
 ## Internal
 ### Architecture
 ![ER Diagram](https://github.com/arutkayb/flutter_todo/blob/main/assets/images/acthitecture.png?raw=true)
+
+
+## Internal Notes
+Integration tests are only runnable on your local environment `flutter test integration_test`

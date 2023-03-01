@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_starter/common/repository/local/i_local_data_manager.dart';
 import 'package:flutter_starter/common/repository/local/local_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';

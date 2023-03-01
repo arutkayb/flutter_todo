@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_starter/common/repository/local/i_local_data_manager.dart';
 import 'package:flutter_starter/common/repository/local/local_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';
@@ -58,7 +59,7 @@ Future _configureMock() async {
   );
 }
 
-Future _configureReal() async {
+Future _configureReal({required String dataRootDirectory}) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -66,7 +67,8 @@ Future _configureReal() async {
   FirebaseDatabase.instance.setPersistenceEnabled(true);
 
   locator.registerSingleton<ILocalDataManager>(LocalDataManager());
-  locator.registerSingleton<IRemoteDataManager>(RemoteDataManager());
+  locator.registerSingleton<IRemoteDataManager>(
+      RemoteDataManager(dataRootDirectory));
 
   locator.registerSingleton<IUseCaseUser>(
     UseCaseUser(),
@@ -96,6 +98,7 @@ Future _configureReal() async {
 Future configureDependencies({
   bool isMock = false,
   bool resetDependencies = false,
+  String dataRootDirectory = ''
 }) async {
   if (resetDependencies) {
     locator.reset();
@@ -104,6 +107,6 @@ Future configureDependencies({
   if (isMock) {
     await _configureMock();
   } else {
-    await _configureReal();
+    await _configureReal(dataRootDirectory: dataRootDirectory);
   }
 }

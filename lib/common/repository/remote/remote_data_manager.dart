@@ -10,6 +10,9 @@ import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.d
 
 class RemoteDataManager implements IRemoteDataManager {
   final dio = Dio();
+  final String rootDirectory;
+
+  RemoteDataManager(this.rootDirectory);
 
   @override
   Future<Board> createBoard(Board board) {

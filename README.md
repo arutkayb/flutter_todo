@@ -14,14 +14,17 @@
 
 You need to configure a Firebase Project to run the project (https://firebase.google.com/docs/flutter/setup)
 
-1. If you haven't already, install the Firebase CLI. 
-2. Create a new project on Firebase Dashboard for this app
-3. Log into Firebase using your Google account by running the following command:
+1. Set up a Firebase Project (https://firebase.google.com/docs/guides)
+2. Activate sign-in method Email/Password
+3. Install the Firebase CLI (https://firebase.google.com/docs/cli)
+4. Create a new project on Firebase Dashboard for this app
+5. Log into Firebase using your Google account by running the following command:
 `firebase login`
-4. Install the FlutterFire CLI by running the following command from any directory:
+6. Install the FlutterFire CLI by running the following command from any directory:
 `dart pub global activate flutterfire_cli`
-5. From your Flutter project directory, run the following command to start the app configuration workflow:
+7. From your Flutter project directory, run the following command to start the app configuration workflow:
 `flutterfire configure`
+8. Choose the project that you created for this app
 
 ## Internal
 ### Architecture

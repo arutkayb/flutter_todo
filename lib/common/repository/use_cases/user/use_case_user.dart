@@ -17,4 +17,19 @@ class UseCaseUser extends UseCaseBase implements IUseCaseUser {
   Future<User?> getCurrentUser() async {
     return remoteDataManager.getCurrentUser();
   }
+
+  @override
+  Future<bool> createUserWithEmail(String email, String password) {
+    return remoteDataManager.createUserWithEmail(email, password);
+  }
+
+  @override
+  Future<bool> deleteCurrentUser() {
+    return remoteDataManager.deleteCurrentUser();
+  }
+
+  @override
+  Future<bool> signInWithEmail(String email, String password) {
+    return remoteDataManager.signInWithEmail(email, password);
+  }
 }

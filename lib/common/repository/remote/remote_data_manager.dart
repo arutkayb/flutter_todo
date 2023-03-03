@@ -136,6 +136,60 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
+  Future<bool> createUserWithEmail(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return false;
+  }
+
+  @override
+  Future<bool> signInWithEmail(String email, String password) async {
+    try {
+      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return false;
+  }
+
+  @override
+  Future<bool> deleteCurrentUser() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      await FirebaseAuth.instance.currentUser!.delete();
+      return true;
+    }
+
+    return false;
+  }
+
+  @override
   Future<bool> isUserLoggedIn() async {
     return (await getCurrentUser()) != null;
   }

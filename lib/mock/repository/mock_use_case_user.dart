@@ -20,4 +20,22 @@ class MockUseCaseUser extends UseCaseBase implements IUseCaseUser {
     // TODO: implement logout
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> createUserWithEmail(String email, String password) {
+    // TODO: implement createUserWithEmail
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> deleteCurrentUser() {
+    // TODO: implement deleteCurrentUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> signInWithEmail(String email, String password) {
+    // TODO: implement signInWithEmail
+    throw UnimplementedError();
+  }
 }

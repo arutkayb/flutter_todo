@@ -10,10 +10,11 @@ void run() {
   IUseCaseBoardList useCaseBoardList = locator.get<IUseCaseBoardList>();
 
   final uid = generateUid();
+  final boardId = generateUid();
   const boardListName = "Created BoardList";
 
   test("createBoardList and fetchBoardLists", () async {
-    final board = await createBoard();
+    final board = await createBoard(boardId);
 
     BoardList newBoardList = BoardList(uid, board.id)..name = boardListName;
     final created = await useCaseBoardList.createBoardList(newBoardList);
@@ -29,13 +30,13 @@ void run() {
   });
 
   test("fetchBoardList", () async {
-    final boardList = await useCaseBoardList.fetchBoardList(uid);
+    final boardList = await useCaseBoardList.fetchBoardList(boardId, uid);
     assert(boardList != null);
     assert(boardList?.id == uid);
   });
 
   test("updateBoardList", () async {
-    final boardList = await useCaseBoardList.fetchBoardList(uid);
+    final boardList = await useCaseBoardList.fetchBoardList(boardId, uid);
     assert(boardList != null);
 
     const newBoardListName = "New BoardList Name";
@@ -47,10 +48,10 @@ void run() {
   });
 
   test("deleteBoardList", () async {
-    final boardList = await useCaseBoardList.fetchBoardList(uid);
+    final boardList = await useCaseBoardList.fetchBoardList(boardId, uid);
     assert(boardList != null);
 
-    bool deleted = await useCaseBoardList.deleteBoardList(boardList!.id);
+    bool deleted = await useCaseBoardList.deleteBoardList(boardList!);
     assert(deleted);
   });
 }

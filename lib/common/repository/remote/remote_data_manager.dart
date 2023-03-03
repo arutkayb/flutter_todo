@@ -102,7 +102,7 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<Board?> createBoard(Board board) async {
-    final ref = _ref.child(_remoteDataPathUtil.getBoardsPath()).child(board.id);
+    final ref = _ref.child(_remoteDataPathUtil.getBoardPath(board.id));
     await ref.set(board.toJson());
 
     return fetchBoard(board.id);
@@ -129,8 +129,8 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<Board?> fetchBoard(String id) async {
-    final ref = _ref.child(_remoteDataPathUtil.getBoardsPath());
-    final snapshot = await ref.child(id).get();
+    final ref = _ref.child(_remoteDataPathUtil.getBoardPath(id));
+    final snapshot = await ref.get();
 
     if (snapshot.exists && snapshot.children.isNotEmpty) {
       final board = Board.fromJson(getMapFromSnapshot(snapshot));
@@ -142,7 +142,7 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<Board?> updateBoard(Board board) async {
-    final ref = _ref.child(_remoteDataPathUtil.getBoardsPath()).child(board.id);
+    final ref = _ref.child(_remoteDataPathUtil.getBoardPath(board.id));
     await ref.update(board.toJson());
 
     return fetchBoard(board.id);
@@ -150,35 +150,69 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<bool> deleteBoard(String id) async {
-    final ref = _ref.child(_remoteDataPathUtil.getBoardsPath()).child(id);
+    final ref = _ref.child(_remoteDataPathUtil.getBoardPath(id));
     await ref.set(null);
 
     return (await fetchBoard(id)) == null;
   }
 
   @override
-  Future<BoardList?> createBoardList(BoardList boardList) {
-    throw UnimplementedError();
+  Future<BoardList?> createBoardList(BoardList boardList) async {
+    final ref = _ref.child(
+        _remoteDataPathUtil.getBoardListPath(boardList.boardId, boardList.id));
+    await ref.set(boardList.toJson());
+
+    return fetchBoardList(boardList.boardId, boardList.id);
   }
 
   @override
-  Future<List<BoardList>> fetchBoardLists(String boardId) {
-    throw UnimplementedError();
+  Future<List<BoardList>> fetchBoardLists(String boardId) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardListsPath(boardId));
+
+    // get current user's boards
+    Query query = ref.orderByChild("boardId").equalTo(boardId);
+    final snapshot = await query.get();
+
+    if (snapshot.exists && snapshot.children.isNotEmpty) {
+      final List<BoardList> list = List.empty(growable: true);
+      for (var element in snapshot.children) {
+        list.add(BoardList.fromJson(getMapFromSnapshot(element)));
+      }
+      return list;
+    } else {
+      return List.empty();
+    }
   }
 
   @override
-  Future<BoardList?> fetchBoardList(String id) {
-    throw UnimplementedError();
+  Future<BoardList?> fetchBoardList(String boardId, String boardListId) async {
+    final ref =
+        _ref.child(_remoteDataPathUtil.getBoardListPath(boardId, boardListId));
+    final snapshot = await ref.get();
+
+    if (snapshot.exists && snapshot.children.isNotEmpty) {
+      final boardList = BoardList.fromJson(getMapFromSnapshot(snapshot));
+      return boardList;
+    } else {
+      return null;
+    }
   }
 
   @override
-  Future<BoardList?> updateBoardList(BoardList boardList) {
-    throw UnimplementedError();
+  Future<BoardList?> updateBoardList(BoardList boardList) async {
+    final ref = _ref.child(
+        _remoteDataPathUtil.getBoardListPath(boardList.boardId, boardList.id));
+    await ref.update(boardList.toJson());
+
+    return fetchBoardList(boardList.boardId, boardList.id);
   }
 
   @override
-  Future<bool> deleteBoardList(String id) {
-    throw UnimplementedError();
+  Future<bool> deleteBoardList(String boardId, String id) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardListPath(boardId, id));
+    await ref.set(null);
+
+    return (await fetchBoardList(boardId, id)) == null;
   }
 
   @override

@@ -8,33 +8,38 @@ import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.d
 
 class MockRemoteDataManager implements IRemoteDataManager {
   @override
-  Future<Board> createBoard(Board board) {
+  Future<Board?> createBoard(Board board) {
     // TODO: implement createBoard
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardList> createBoardList(BoardList boardList) {
+  Future<BoardList?> createBoardList(BoardList boardList) {
     // TODO: implement createBoardList
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardTask> createBoardTask(BoardTask boardTask) {
+  Future<BoardTask?> createBoardTask(BoardTask boardTask) {
     // TODO: implement createBoardTask
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardTaskAlarm> createBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
+  Future<BoardTaskAlarm?> createBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
     // TODO: implement createBoardTaskAlarm
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardTaskComment> createBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
+  Future<BoardTaskComment?> createBoardTaskComment(BoardTaskComment boardTaskComment) {
     // TODO: implement createBoardTaskComment
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> createUserWithEmail(String email, String password) {
+    // TODO: implement createUserWithEmail
     throw UnimplementedError();
   }
 
@@ -45,7 +50,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> deleteBoardList(String id) {
+  Future<bool> deleteBoardList(String boardId, String id) {
     // TODO: implement deleteBoardList
     throw UnimplementedError();
   }
@@ -69,13 +74,19 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<Board> fetchBoard(String id) {
+  Future<bool> deleteCurrentUser() {
+    // TODO: implement deleteCurrentUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Board?> fetchBoard(String id) {
     // TODO: implement fetchBoard
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardList> fetchBoardList(String id) {
+  Future<BoardList?> fetchBoardList(String boardId, String id) {
     // TODO: implement fetchBoardList
     throw UnimplementedError();
   }
@@ -87,13 +98,13 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTask> fetchBoardTask(String id) {
+  Future<BoardTask?> fetchBoardTask(String id) {
     // TODO: implement fetchBoardTask
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardTaskAlarm> fetchBoardTaskAlarm(String id) {
+  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String id) {
     // TODO: implement fetchBoardTaskAlarm
     throw UnimplementedError();
   }
@@ -105,7 +116,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment> fetchBoardTaskComment(String id) {
+  Future<BoardTaskComment?> fetchBoardTaskComment(String id) {
     // TODO: implement fetchBoardTaskComment
     throw UnimplementedError();
   }
@@ -129,67 +140,6 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Board> updateBoard(Board board) {
-    // TODO: implement updateBoard
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<BoardList> updateBoardList(BoardList boardList) {
-    // TODO: implement updateBoardList
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<BoardTask> updateBoardTask(BoardTask boardTask) {
-    // TODO: implement updateBoardTask
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<BoardTaskAlarm> updateBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
-    // TODO: implement updateBoardTaskAlarm
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<BoardTaskComment> updateBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
-    // TODO: implement updateBoardTaskComment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> createUserWithEmail(String email, String password) {
-    // TODO: implement createUserWithEmail
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> signInWithEmail(String email, String password) {
-    // TODO: implement signInWithEmail
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> deleteCurrentUser() {
-    // TODO: implement deleteCurrentUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> removeDirectory(String directory) {
-    // TODO: implement removeDirectory
-    throw UnimplementedError();
-  }
-
-  @override
   User? getCurrentUser() {
     // TODO: implement getCurrentUser
     throw UnimplementedError();
@@ -200,4 +150,53 @@ class MockRemoteDataManager implements IRemoteDataManager {
     // TODO: implement isUserLoggedIn
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeDirectory(String directory) {
+    // TODO: implement removeDirectory
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> signInWithEmail(String email, String password) {
+    // TODO: implement signInWithEmail
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Board?> updateBoard(Board board) {
+    // TODO: implement updateBoard
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BoardList?> updateBoardList(BoardList boardList) {
+    // TODO: implement updateBoardList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BoardTask?> updateBoardTask(BoardTask boardTask) {
+    // TODO: implement updateBoardTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BoardTaskAlarm?> updateBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
+    // TODO: implement updateBoardTaskAlarm
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BoardTaskComment?> updateBoardTaskComment(BoardTaskComment boardTaskComment) {
+    // TODO: implement updateBoardTaskComment
+    throw UnimplementedError();
+  }
+  
 }

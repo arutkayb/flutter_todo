@@ -40,10 +40,10 @@ Future<BoardList> createBoardList(Board board) async {
   return newBoardList;
 }
 
-Future<Board> createBoard() async {
+Future<Board> createBoard([String? id]) async {
   final user = getCurrentUser();
 
-  final uid = generateUid();
+  final uid = id ?? generateUid();
   const boardName = "Created Board";
   const boardDescription = "Created Board Description";
 

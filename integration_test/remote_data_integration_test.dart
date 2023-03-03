@@ -35,10 +35,10 @@ void main() async {
     });
 
     board_test.run();
+    board_list_test.run();
     board_task_test.run();
     board_alarm_test.run();
     board_comment_test.run();
-    board_list_test.run();
   });
 }
 

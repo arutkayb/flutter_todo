@@ -5,32 +5,28 @@ import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
 
 class UseCaseBoardTask extends UseCaseBase implements IUseCaseBoardTask {
   @override
-  Future<BoardTask> createBoardTask(BoardTask boardTask) {
-    // TODO: implement createBoardTask
-    throw UnimplementedError();
+  Future<BoardTask?> createBoardTask(BoardTask boardTask) {
+    return remoteDataManager.createBoardTask(boardTask);
   }
 
   @override
-  Future<bool> deleteBoardTask(String id) {
-    // TODO: implement deleteBoardTask
-    throw UnimplementedError();
+  Future<bool> deleteBoardTask(BoardTask boardTask) {
+    return remoteDataManager.deleteBoardTask(boardTask);
   }
 
   @override
-  Future<BoardTask> fetchBoardTask(String id) {
-    // TODO: implement fetchBoardTask
-    throw UnimplementedError();
+  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId, String id) {
+    return remoteDataManager.fetchBoardTask(boardId, boardListId, id);
   }
 
   @override
-  Future<List<BoardTask>> fetchBoardTasks(Board board) {
-    // TODO: implement fetchBoardTasks
-    throw UnimplementedError();
+  Future<List<BoardTask>> fetchBoardTasks(String boardId, String boardListId) {
+    return remoteDataManager.fetchBoardTasks(boardId, boardListId);
   }
 
   @override
-  Future<BoardTask> updateBoardTask(BoardTask boardTask) {
-    // TODO: implement updateBoardTask
-    throw UnimplementedError();
+  Future<BoardTask?> updateBoardTask(BoardTask boardTask) {
+    return remoteDataManager.updateBoardTask(boardTask);
   }
+
 }

@@ -46,13 +46,14 @@ abstract class IRemoteDataManager {
   // BoardTask
   Future<BoardTask?> createBoardTask(BoardTask boardTask);
 
-  Future<List<BoardTask>> fetchBoardTasks(String boardId);
+  Future<List<BoardTask>> fetchBoardTasks(String boardId, String boardListId);
 
-  Future<BoardTask?> fetchBoardTask(String id);
+  Future<BoardTask?> fetchBoardTask(
+      String boardId, String boardListId, String id);
 
   Future<BoardTask?> updateBoardTask(BoardTask boardTask);
 
-  Future<bool> deleteBoardTask(String id);
+  Future<bool> deleteBoardTask(BoardTask boardTask);
 
   // BoardTaskComment
   Future<BoardTaskComment?> createBoardTaskComment(

@@ -8,6 +8,7 @@ part of 'board_task.dart';
 
 BoardTask _$BoardTaskFromJson(Map<String, dynamic> json) => BoardTask(
       json['id'] as String,
+      json['boardId'] as String,
       json['boardListId'] as String,
     )
       ..title = json['title'] as String?
@@ -22,6 +23,7 @@ BoardTask _$BoardTaskFromJson(Map<String, dynamic> json) => BoardTask(
 
 Map<String, dynamic> _$BoardTaskToJson(BoardTask instance) => <String, dynamic>{
       'id': instance.id,
+      'boardId': instance.boardId,
       'boardListId': instance.boardListId,
       'title': instance.title,
       'description': instance.description,

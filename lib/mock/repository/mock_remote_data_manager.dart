@@ -56,7 +56,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> deleteBoardTask(String id) {
+  Future<bool> deleteBoardTask(BoardTask boardTask) {
     // TODO: implement deleteBoardTask
     throw UnimplementedError();
   }
@@ -98,7 +98,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTask?> fetchBoardTask(String id) {
+  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId, String id) {
     // TODO: implement fetchBoardTask
     throw UnimplementedError();
   }
@@ -128,7 +128,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<List<BoardTask>> fetchBoardTasks(String boardId) {
+  Future<List<BoardTask>> fetchBoardTasks(String boardId, String boardListId) {
     // TODO: implement fetchBoardTasks
     throw UnimplementedError();
   }
@@ -198,5 +198,5 @@ class MockRemoteDataManager implements IRemoteDataManager {
     // TODO: implement updateBoardTaskComment
     throw UnimplementedError();
   }
-  
+
 }

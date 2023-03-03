@@ -9,6 +9,9 @@ class BoardTask {
   String id;
 
   // foreign key
+  String boardId;
+
+  // foreign key
   String boardListId;
 
   String? title;
@@ -17,10 +20,10 @@ class BoardTask {
   DateTime? dateStart;
   DateTime? dateEnd;
 
+  BoardTask(this.id, this.boardId, this.boardListId);
 
-  BoardTask(this.id, this.boardListId);
-
-  factory BoardTask.fromJson(Map<String, dynamic> json) => _$BoardTaskFromJson(json);
+  factory BoardTask.fromJson(Map<String, dynamic> json) =>
+      _$BoardTaskFromJson(json);
 
   Map<String, dynamic> toJson() => _$BoardTaskToJson(this);
 }

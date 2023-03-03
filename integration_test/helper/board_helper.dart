@@ -17,7 +17,8 @@ Future<BoardTask> createBoardTask(BoardList boardList) async {
   final uid = generateUid();
   const boardTaskTitle = "Created Board Task";
 
-  BoardTask newBoardTask = BoardTask(uid, boardList.id)..title = boardTaskTitle;
+  BoardTask newBoardTask = BoardTask(uid, boardList.boardId, boardList.id)
+    ..title = boardTaskTitle;
   final created = await useCaseBoardTask.createBoardTask(newBoardTask);
 
   assert(created != null);
@@ -26,8 +27,8 @@ Future<BoardTask> createBoardTask(BoardList boardList) async {
   return newBoardTask;
 }
 
-Future<BoardList> createBoardList(Board board) async {
-  final uid = generateUid();
+Future<BoardList> createBoardList(Board board, [String? id]) async {
+  final uid = id ?? generateUid();
   const boardListName = "Created Board List";
 
   BoardList newBoardList = BoardList(uid, board.id)..name = boardListName;

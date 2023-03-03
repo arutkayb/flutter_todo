@@ -12,7 +12,7 @@ Future<User> integrationTesterSignIn() async {
 
   assert(signedIn);
 
-  final user = await useCaseUser.getCurrentUser();
+  final user = useCaseUser.getCurrentUser();
   assert(user != null);
 
   return user!;

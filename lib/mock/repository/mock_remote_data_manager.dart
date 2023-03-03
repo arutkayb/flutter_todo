@@ -123,7 +123,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<List<Board>> fetchBoards(String userId) {
+  Future<List<Board>> fetchBoards() {
     // TODO: implement fetchBoards
     throw UnimplementedError();
   }

@@ -4,32 +4,27 @@ import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
 
 class UseCaseBoard extends UseCaseBase implements IUseCaseBoard {
   @override
-  Future<Board> createBoard(Board board) {
-    // TODO: implement createBoard
-    throw UnimplementedError();
+  Future<Board?> createBoard(Board board) {
+    return remoteDataManager.createBoard(board);
   }
 
   @override
   Future<bool> deleteBoard(String id) {
-    // TODO: implement deleteBoard
-    throw UnimplementedError();
+    return remoteDataManager.deleteBoard(id);
   }
 
   @override
-  Future<Board> fetchBoard(String id) {
-    // TODO: implement fetchBoard
-    throw UnimplementedError();
+  Future<Board?> fetchBoard(String id) {
+    return remoteDataManager.fetchBoard(id);
   }
 
   @override
   Future<List<Board>> fetchBoards() {
-    // TODO: implement fetchBoards
-    throw UnimplementedError();
+    return remoteDataManager.fetchBoards();
   }
 
   @override
-  Future<Board> updateBoard(Board board) {
-    // TODO: implement updateBoard
-    throw UnimplementedError();
+  Future<Board?> updateBoard(Board board) {
+    return remoteDataManager.updateBoard(board);
   }
 }

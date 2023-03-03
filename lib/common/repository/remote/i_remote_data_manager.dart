@@ -22,59 +22,59 @@ abstract class IRemoteDataManager {
   Future<void> logout();
 
   // Board
-  Future<Board> createBoard(Board board);
+  Future<Board?> createBoard(Board board);
 
-  Future<List<Board>> fetchBoards(String userId);
+  Future<List<Board>> fetchBoards();
 
-  Future<Board> fetchBoard(String id);
+  Future<Board?> fetchBoard(String id);
 
-  Future<Board> updateBoard(Board board);
+  Future<Board?> updateBoard(Board board);
 
   Future<bool> deleteBoard(String id);
 
   // BoardList
-  Future<BoardList> createBoardList(BoardList boardList);
+  Future<BoardList?> createBoardList(BoardList boardList);
 
   Future<List<BoardList>> fetchBoardLists(String boardId);
 
-  Future<BoardList> fetchBoardList(String id);
+  Future<BoardList?> fetchBoardList(String id);
 
-  Future<BoardList> updateBoardList(BoardList boardList);
+  Future<BoardList?> updateBoardList(BoardList boardList);
 
   Future<bool> deleteBoardList(String id);
 
   // BoardTask
-  Future<BoardTask> createBoardTask(BoardTask boardTask);
+  Future<BoardTask?> createBoardTask(BoardTask boardTask);
 
   Future<List<BoardTask>> fetchBoardTasks(String boardId);
 
-  Future<BoardTask> fetchBoardTask(String id);
+  Future<BoardTask?> fetchBoardTask(String id);
 
-  Future<BoardTask> updateBoardTask(BoardTask boardTask);
+  Future<BoardTask?> updateBoardTask(BoardTask boardTask);
 
   Future<bool> deleteBoardTask(String id);
 
   // BoardTaskComment
-  Future<BoardTaskComment> createBoardTaskComment(
+  Future<BoardTaskComment?> createBoardTaskComment(
       BoardTaskComment boardTaskComment);
 
   Future<List<BoardTaskComment>> fetchBoardTaskComments(String boardTaskId);
 
-  Future<BoardTaskComment> fetchBoardTaskComment(String id);
+  Future<BoardTaskComment?> fetchBoardTaskComment(String id);
 
-  Future<BoardTaskComment> updateBoardTaskComment(
+  Future<BoardTaskComment?> updateBoardTaskComment(
       BoardTaskComment boardTaskComment);
 
   Future<bool> deleteBoardTaskComment(String id);
 
   // BoardTaskAlarm
-  Future<BoardTaskAlarm> createBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
+  Future<BoardTaskAlarm?> createBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
 
   Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(String boardTaskId);
 
-  Future<BoardTaskAlarm> fetchBoardTaskAlarm(String id);
+  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String id);
 
-  Future<BoardTaskAlarm> updateBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
+  Future<BoardTaskAlarm?> updateBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
 
   Future<bool> deleteBoardTaskAlarm(String id);
 }

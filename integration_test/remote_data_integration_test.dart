@@ -28,19 +28,17 @@ void main() async {
     user_test.run();
   });
 
-  // The rest of integration tests will use the tester account
-  await integrationTesterSignIn();
-
   group('board tests', () {
+    setUp(() async {
+      // The rest of integration tests will use the tester account
+      await integrationTesterSignIn();
+    });
+
     board_test.run();
     board_task_test.run();
     board_alarm_test.run();
     board_comment_test.run();
     board_list_test.run();
-
-    tearDown(() {
-      removeTestDirectory(testDirectory);
-    });
   });
 }
 

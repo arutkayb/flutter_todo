@@ -8,6 +8,9 @@ class BoardTaskComment {
   String id;
 
   // foreign key
+  String boardId;
+
+  // foreign key
   String boardTaskId;
 
   // foreign key
@@ -16,7 +19,12 @@ class BoardTaskComment {
   DateTime? dateCreated;
   String? content;
 
-  BoardTaskComment(this.id, this.boardTaskId, this.userId);
+  BoardTaskComment(
+    this.id,
+    this.userId,
+    this.boardId,
+    this.boardTaskId,
+  );
 
   factory BoardTaskComment.fromJson(Map<String, dynamic> json) =>
       _$BoardTaskCommentFromJson(json);

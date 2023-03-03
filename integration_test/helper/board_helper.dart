@@ -13,8 +13,8 @@ IUseCaseBoard useCaseBoard = locator.get<IUseCaseBoard>();
 IUseCaseBoardList useCaseBoardList = locator.get<IUseCaseBoardList>();
 IUseCaseBoardTask useCaseBoardTask = locator.get<IUseCaseBoardTask>();
 
-Future<BoardTask> createBoardTask(BoardList boardList) async {
-  final uid = generateUid();
+Future<BoardTask> createBoardTask(BoardList boardList, [String? id]) async {
+  final uid = id ?? generateUid();
   const boardTaskTitle = "Created Board Task";
 
   BoardTask newBoardTask = BoardTask(uid, boardList.boardId, boardList.id)

@@ -1,15 +1,18 @@
-import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/models/board_task.dart';
 import 'package:flutter_starter/common/models/board_task_comment.dart';
 
 abstract class IUseCaseBoardTaskComment {
-  Future<BoardTaskComment?> createBoardTaskComment(BoardTaskComment board);
+  Future<BoardTaskComment?> createBoardTaskComment(
+      BoardTaskComment boardTaskComment);
 
-  Future<List<BoardTaskComment>> fetchBoardTaskComments(BoardTask boardTask);
+  Future<List<BoardTaskComment>> fetchBoardTaskComments(
+      String boardId, String boardTaskId);
 
-  Future<BoardTaskComment?> fetchBoardTaskComment(String id);
+  Future<BoardTaskComment?> fetchBoardTaskComment(
+      String boardId, String boardTaskId, String id);
 
-  Future<BoardTaskComment?> updateBoardTaskComment(BoardTaskComment board);
+  Future<BoardTaskComment?> updateBoardTaskComment(
+      BoardTaskComment boardTaskComment);
 
-  Future<bool> deleteBoardTaskComment(String id);
+  Future<bool> deleteBoardTaskComment(BoardTaskComment boardTaskComment);
 }

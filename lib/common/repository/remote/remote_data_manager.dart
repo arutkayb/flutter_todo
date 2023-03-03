@@ -279,29 +279,78 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<BoardTaskComment?> createBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
-    throw UnimplementedError();
+      BoardTaskComment boardTaskComment) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardTaskCommentPath(
+        boardTaskComment.boardId,
+        boardTaskComment.boardTaskId,
+        boardTaskComment.id));
+    await ref.set(boardTaskComment.toJson());
+
+    return fetchBoardTaskComment(boardTaskComment.boardId,
+        boardTaskComment.boardTaskId, boardTaskComment.id);
   }
 
   @override
-  Future<List<BoardTaskComment>> fetchBoardTaskComments(String boardTaskId) {
-    throw UnimplementedError();
+  Future<List<BoardTaskComment>> fetchBoardTaskComments(
+      String boardId, String boardTaskId) async {
+    final ref = _ref.child(
+        _remoteDataPathUtil.getBoardTaskCommentsPath(boardId, boardTaskId));
+
+    // get current user's boards task comments
+    Query query = ref.orderByChild("userId").equalTo(getCurrentUser()!.id);
+    final snapshot = await query.get();
+
+    if (snapshot.exists && snapshot.children.isNotEmpty) {
+      final List<BoardTaskComment> list = List.empty(growable: true);
+      for (var element in snapshot.children) {
+        list.add(BoardTaskComment.fromJson(getMapFromSnapshot(element)));
+      }
+      return list;
+    } else {
+      return List.empty();
+    }
   }
 
   @override
-  Future<BoardTaskComment?> fetchBoardTaskComment(String id) {
-    throw UnimplementedError();
+  Future<BoardTaskComment?> fetchBoardTaskComment(
+      String boardId, String boardTaskId, String id) async {
+    final ref = _ref.child(
+        _remoteDataPathUtil.getBoardTaskCommentPath(boardId, boardTaskId, id));
+    final snapshot = await ref.get();
+
+    if (snapshot.exists && snapshot.children.isNotEmpty) {
+      final boardTaskComment =
+          BoardTaskComment.fromJson(getMapFromSnapshot(snapshot));
+      return boardTaskComment;
+    } else {
+      return null;
+    }
   }
 
   @override
   Future<BoardTaskComment?> updateBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
-    throw UnimplementedError();
+      BoardTaskComment boardTaskComment) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardTaskCommentPath(
+        boardTaskComment.boardId,
+        boardTaskComment.boardTaskId,
+        boardTaskComment.id));
+    await ref.update(boardTaskComment.toJson());
+
+    return fetchBoardTaskComment(boardTaskComment.boardId,
+        boardTaskComment.boardTaskId, boardTaskComment.id);
   }
 
   @override
-  Future<bool> deleteBoardTaskComment(String id) {
-    throw UnimplementedError();
+  Future<bool> deleteBoardTaskComment(BoardTaskComment boardTaskComment) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardTaskCommentPath(
+        boardTaskComment.boardId,
+        boardTaskComment.boardTaskId,
+        boardTaskComment.id));
+    await ref.set(null);
+
+    return (await fetchBoardTask(boardTaskComment.boardId,
+            boardTaskComment.boardTaskId, boardTaskComment.id)) ==
+        null;
   }
 
   @override

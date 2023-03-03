@@ -32,7 +32,8 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment?> createBoardTaskComment(BoardTaskComment boardTaskComment) {
+  Future<BoardTaskComment?> createBoardTaskComment(
+      BoardTaskComment boardTaskComment) {
     // TODO: implement createBoardTaskComment
     throw UnimplementedError();
   }
@@ -68,7 +69,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> deleteBoardTaskComment(String id) {
+  Future<bool> deleteBoardTaskComment(BoardTaskComment boardTaskComment) {
     // TODO: implement deleteBoardTaskComment
     throw UnimplementedError();
   }
@@ -98,7 +99,8 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId, String id) {
+  Future<BoardTask?> fetchBoardTask(
+      String boardId, String boardListId, String id) {
     // TODO: implement fetchBoardTask
     throw UnimplementedError();
   }
@@ -116,13 +118,15 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment?> fetchBoardTaskComment(String id) {
+  Future<BoardTaskComment?> fetchBoardTaskComment(
+      String boardId, String boardTaskId, String id) {
     // TODO: implement fetchBoardTaskComment
     throw UnimplementedError();
   }
 
   @override
-  Future<List<BoardTaskComment>> fetchBoardTaskComments(String boardTaskId) {
+  Future<List<BoardTaskComment>> fetchBoardTaskComments(
+      String boardId, String boardTaskId) {
     // TODO: implement fetchBoardTaskComments
     throw UnimplementedError();
   }
@@ -194,9 +198,9 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment?> updateBoardTaskComment(BoardTaskComment boardTaskComment) {
+  Future<BoardTaskComment?> updateBoardTaskComment(
+      BoardTaskComment boardTaskComment) {
     // TODO: implement updateBoardTaskComment
     throw UnimplementedError();
   }
-
 }

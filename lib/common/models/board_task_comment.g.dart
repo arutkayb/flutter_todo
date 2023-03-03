@@ -9,8 +9,9 @@ part of 'board_task_comment.dart';
 BoardTaskComment _$BoardTaskCommentFromJson(Map<String, dynamic> json) =>
     BoardTaskComment(
       json['id'] as String,
-      json['boardTaskId'] as String,
       json['userId'] as String,
+      json['boardId'] as String,
+      json['boardTaskId'] as String,
     )
       ..dateCreated = json['dateCreated'] == null
           ? null
@@ -20,6 +21,7 @@ BoardTaskComment _$BoardTaskCommentFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$BoardTaskCommentToJson(BoardTaskComment instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'boardId': instance.boardId,
       'boardTaskId': instance.boardTaskId,
       'userId': instance.userId,
       'dateCreated': instance.dateCreated?.toIso8601String(),

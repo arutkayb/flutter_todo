@@ -8,11 +8,14 @@ class BoardTaskAlarm {
   String id;
 
   // foreign key
+  String boardId;
+
+  // foreign key
   String boardTaskId;
 
   DateTime? dueDate;
 
-  BoardTaskAlarm(this.id, this.boardTaskId);
+  BoardTaskAlarm(this.id, this.boardId, this.boardTaskId);
 
   factory BoardTaskAlarm.fromJson(Map<String, dynamic> json) => _$BoardTaskAlarmFromJson(json);
 

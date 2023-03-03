@@ -9,6 +9,7 @@ part of 'board_task_alarm.dart';
 BoardTaskAlarm _$BoardTaskAlarmFromJson(Map<String, dynamic> json) =>
     BoardTaskAlarm(
       json['id'] as String,
+      json['boardId'] as String,
       json['boardTaskId'] as String,
     )..dueDate = json['dueDate'] == null
         ? null
@@ -17,6 +18,7 @@ BoardTaskAlarm _$BoardTaskAlarmFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$BoardTaskAlarmToJson(BoardTaskAlarm instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'boardId': instance.boardId,
       'boardTaskId': instance.boardTaskId,
       'dueDate': instance.dueDate?.toIso8601String(),
     };

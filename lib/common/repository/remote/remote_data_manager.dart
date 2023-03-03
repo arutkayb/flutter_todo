@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
 import 'package:flutter_starter/common/models/board_task.dart';
@@ -10,13 +11,14 @@ import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.d
 
 class RemoteDataManager implements IRemoteDataManager {
   final dio = Dio();
-  final String rootDirectory;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  final DatabaseReference _ref;
 
-  RemoteDataManager(this.rootDirectory);
+  RemoteDataManager(String rootDirectory)
+      : _ref = FirebaseDatabase.instance.ref(rootDirectory);
 
   @override
   Future<Board> createBoard(Board board) {
-    // TODO: implement createBoard
     throw UnimplementedError();
   }
 

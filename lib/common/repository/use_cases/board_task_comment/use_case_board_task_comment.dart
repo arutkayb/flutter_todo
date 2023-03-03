@@ -1,36 +1,39 @@
 import 'package:flutter_starter/common/models/board.dart';
+import 'package:flutter_starter/common/models/board_task.dart';
+import 'package:flutter_starter/common/models/board_task_comment.dart';
 import 'package:flutter_starter/common/repository/use_cases/board_task_comment/i_use_case_board_task_comment.dart';
 import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
 
 class UseCaseBoardTaskComment extends UseCaseBase
     implements IUseCaseBoardTaskComment {
   @override
-  Future<Board> createBoard(Board board) {
-    // TODO: implement createBoard
+  Future<BoardTaskComment?> createBoardTaskComment(BoardTaskComment board) {
+    // TODO: implement createBoardTaskComment
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> deleteBoard(String id) {
-    // TODO: implement deleteBoard
+  Future<bool> deleteBoardTaskComment(String id) {
+    // TODO: implement deleteBoardTaskComment
     throw UnimplementedError();
   }
 
   @override
-  Future<Board> fetchBoard(String id) {
-    // TODO: implement fetchBoard
+  Future<BoardTaskComment?> fetchBoardTaskComment(String id) {
+    // TODO: implement fetchBoardTaskComment
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Board>> fetchBoards() {
-    // TODO: implement fetchBoards
+  Future<List<BoardTaskComment>> fetchBoardTaskComments(BoardTask boardTask) {
+    // TODO: implement fetchBoardTaskComments
     throw UnimplementedError();
   }
 
   @override
-  Future<Board> updateBoard(Board board) {
-    // TODO: implement updateBoard
+  Future<BoardTaskComment?> updateBoardTaskComment(BoardTaskComment board) {
+    // TODO: implement updateBoardTaskComment
     throw UnimplementedError();
   }
+
 }

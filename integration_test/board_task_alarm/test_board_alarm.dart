@@ -10,39 +10,42 @@ void run() {
   IUseCaseBoardTaskAlarm useCaseBoardTaskAlarm =
       locator.get<IUseCaseBoardTaskAlarm>();
 
-  final uid = generateUid();
+  final boardTaskAlarmId = generateUid();
+  final boardTaskId = generateUid();
+  final boardId = generateUid();
   final boardTaskAlarmDueDate = DateTime.now();
 
   test("createBoardTaskAlarm and fetchBoardTaskAlarms", () async {
-    final board = await createBoard();
+    final board = await createBoard(boardId);
     final boardList = await createBoardList(board);
-    final boardTask = await createBoardTask(boardList);
+    final boardTask = await createBoardTask(boardList, boardTaskId);
 
     BoardTaskAlarm newBoardTaskAlarm =
-        BoardTaskAlarm(uid, board.id, boardTask.id)
+        BoardTaskAlarm(boardTaskAlarmId, board.id, boardTask.id)
           ..dueDate = boardTaskAlarmDueDate;
     final created =
         await useCaseBoardTaskAlarm.createBoardTaskAlarm(newBoardTaskAlarm);
 
     assert(created != null);
-    assert(created?.id == uid);
+    assert(created?.id == boardTaskAlarmId);
+    assert(created?.boardId == board.id);
     assert(created?.boardTaskId == boardTask.id);
     assert(created?.dueDate == boardTaskAlarmDueDate);
 
     List<BoardTaskAlarm> boardTaskAlarms =
-        await useCaseBoardTaskAlarm.fetchBoardTaskAlarms(boardTask);
+        await useCaseBoardTaskAlarm.fetchBoardTaskAlarms(boardId, boardTaskId);
     assert(boardTaskAlarms.length == 1);
-    assert(boardTaskAlarms[0].id == uid);
+    assert(boardTaskAlarms[0].id == boardTaskAlarmId);
   });
 
   test("fetchBoardTaskAlarm", () async {
-    final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(uid);
+    final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(boardId, boardTaskId, boardTaskAlarmId);
     assert(boardTaskAlarm != null);
-    assert(boardTaskAlarm?.id == uid);
+    assert(boardTaskAlarm?.id == boardTaskAlarmId);
   });
 
   test("updateBoardTaskAlarm", () async {
-    final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(uid);
+    final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(boardId, boardTaskId, boardTaskAlarmId);
     assert(boardTaskAlarm != null);
 
     final newBoardTaskAlarmDueDate = DateTime.now();
@@ -55,11 +58,11 @@ void run() {
   });
 
   test("deleteBoardTaskAlarm", () async {
-    final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(uid);
+    final BoardTaskAlarm? boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(boardId, boardTaskId, boardTaskAlarmId);
     assert(boardTaskAlarm != null);
 
     bool deleted =
-        await useCaseBoardTaskAlarm.deleteBoardTaskAlarm(boardTaskAlarm!.id);
+        await useCaseBoardTaskAlarm.deleteBoardTaskAlarm(boardTaskAlarm!);
     assert(deleted);
   });
 }

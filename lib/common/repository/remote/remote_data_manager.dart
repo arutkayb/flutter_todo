@@ -348,33 +348,76 @@ class RemoteDataManager implements IRemoteDataManager {
         boardTaskComment.id));
     await ref.set(null);
 
-    return (await fetchBoardTask(boardTaskComment.boardId,
+    return (await fetchBoardTaskComment(boardTaskComment.boardId,
             boardTaskComment.boardTaskId, boardTaskComment.id)) ==
         null;
   }
 
   @override
-  Future<BoardTaskAlarm?> createBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
-    throw UnimplementedError();
+  Future<BoardTaskAlarm?> createBoardTaskAlarm(
+      BoardTaskAlarm boardTaskAlarm) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardTaskAlarmPath(
+        boardTaskAlarm.boardId, boardTaskAlarm.boardTaskId, boardTaskAlarm.id));
+    await ref.set(boardTaskAlarm.toJson());
+
+    return fetchBoardTaskAlarm(
+        boardTaskAlarm.boardId, boardTaskAlarm.boardTaskId, boardTaskAlarm.id);
   }
 
   @override
-  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(String boardTaskId) {
-    throw UnimplementedError();
+  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(
+      String boardId, String boardTaskId) async {
+    final ref = _ref.child(
+        _remoteDataPathUtil.getBoardTaskAlarmsPath(boardId, boardTaskId));
+
+    final snapshot = await ref.get();
+
+    if (snapshot.exists && snapshot.children.isNotEmpty) {
+      final List<BoardTaskAlarm> list = List.empty(growable: true);
+      for (var element in snapshot.children) {
+        list.add(BoardTaskAlarm.fromJson(getMapFromSnapshot(element)));
+      }
+      return list;
+    } else {
+      return List.empty();
+    }
   }
 
   @override
-  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String id) {
-    throw UnimplementedError();
+  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(
+      String boardId, String boardTaskId, String id) async {
+    final ref = _ref.child(
+        _remoteDataPathUtil.getBoardTaskAlarmPath(boardId, boardTaskId, id));
+    final snapshot = await ref.get();
+
+    if (snapshot.exists && snapshot.children.isNotEmpty) {
+      final boardTaskAlarm =
+          BoardTaskAlarm.fromJson(getMapFromSnapshot(snapshot));
+      return boardTaskAlarm;
+    } else {
+      return null;
+    }
   }
 
   @override
-  Future<BoardTaskAlarm?> updateBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
-    throw UnimplementedError();
+  Future<BoardTaskAlarm?> updateBoardTaskAlarm(
+      BoardTaskAlarm boardTaskAlarm) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardTaskAlarmPath(
+        boardTaskAlarm.boardId, boardTaskAlarm.boardTaskId, boardTaskAlarm.id));
+    await ref.update(boardTaskAlarm.toJson());
+
+    return fetchBoardTaskAlarm(
+        boardTaskAlarm.boardId, boardTaskAlarm.boardTaskId, boardTaskAlarm.id);
   }
 
   @override
-  Future<bool> deleteBoardTaskAlarm(String id) {
-    throw UnimplementedError();
+  Future<bool> deleteBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) async {
+    final ref = _ref.child(_remoteDataPathUtil.getBoardTaskAlarmPath(
+        boardTaskAlarm.boardId, boardTaskAlarm.boardTaskId, boardTaskAlarm.id));
+    await ref.set(null);
+
+    return (await fetchBoardTaskAlarm(boardTaskAlarm.boardId,
+            boardTaskAlarm.boardTaskId, boardTaskAlarm.id)) ==
+        null;
   }
 }

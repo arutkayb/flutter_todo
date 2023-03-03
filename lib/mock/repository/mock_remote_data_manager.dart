@@ -32,8 +32,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment?> createBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
+  Future<BoardTaskComment?> createBoardTaskComment(BoardTaskComment boardTaskComment) {
     // TODO: implement createBoardTaskComment
     throw UnimplementedError();
   }
@@ -63,7 +62,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> deleteBoardTaskAlarm(String id) {
+  Future<bool> deleteBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm) {
     // TODO: implement deleteBoardTaskAlarm
     throw UnimplementedError();
   }
@@ -99,34 +98,31 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTask?> fetchBoardTask(
-      String boardId, String boardListId, String id) {
+  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId, String id) {
     // TODO: implement fetchBoardTask
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String id) {
+  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String boardId, String boardTaskId, String id) {
     // TODO: implement fetchBoardTaskAlarm
     throw UnimplementedError();
   }
 
   @override
-  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(String boardTaskId) {
+  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(String boardId, String boardTaskId) {
     // TODO: implement fetchBoardTaskAlarms
     throw UnimplementedError();
   }
 
   @override
-  Future<BoardTaskComment?> fetchBoardTaskComment(
-      String boardId, String boardTaskId, String id) {
+  Future<BoardTaskComment?> fetchBoardTaskComment(String boardId, String boardTaskId, String id) {
     // TODO: implement fetchBoardTaskComment
     throw UnimplementedError();
   }
 
   @override
-  Future<List<BoardTaskComment>> fetchBoardTaskComments(
-      String boardId, String boardTaskId) {
+  Future<List<BoardTaskComment>> fetchBoardTaskComments(String boardId, String boardTaskId) {
     // TODO: implement fetchBoardTaskComments
     throw UnimplementedError();
   }
@@ -198,9 +194,9 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment?> updateBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
+  Future<BoardTaskComment?> updateBoardTaskComment(BoardTaskComment boardTaskComment) {
     // TODO: implement updateBoardTaskComment
     throw UnimplementedError();
   }
+
 }

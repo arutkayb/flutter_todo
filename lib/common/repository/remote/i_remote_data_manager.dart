@@ -73,11 +73,13 @@ abstract class IRemoteDataManager {
   // BoardTaskAlarm
   Future<BoardTaskAlarm?> createBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
 
-  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(String boardTaskId);
+  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(
+      String boardId, String boardTaskId);
 
-  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String id);
+  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(
+      String boardId, String boardTaskId, String id);
 
   Future<BoardTaskAlarm?> updateBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
 
-  Future<bool> deleteBoardTaskAlarm(String id);
+  Future<bool> deleteBoardTaskAlarm(BoardTaskAlarm boardTaskAlarm);
 }

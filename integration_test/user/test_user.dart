@@ -1,28 +1,33 @@
 import 'package:flutter_starter/common/repository/use_cases/user/i_use_case_user.dart';
 import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../remote_data_integration_test.dart';
 
-void main() {
+void run() {
   IUseCaseUser useCaseUser = locator.get<IUseCaseUser>();
 
   group('Test user creation', () {
-    test("User created", () async {
+    final testUserEmail = '${generateUid()}@test.com';
+
+    test("User created, signed in, deleted", () async {
       final created =
-          await useCaseUser.createUserWithEmail('test@test.com', '123456');
+          await useCaseUser.createUserWithEmail(testUserEmail, '123456');
       assert(created);
-    });
 
-    test("User signed in", () async {
       final signedIn =
-          await useCaseUser.signInWithEmail('test@test.com', '123456');
+          await useCaseUser.signInWithEmail(testUserEmail, '123456');
       assert(signedIn);
-    });
 
-    test("User deleted", () async {
       final deleted = await useCaseUser.deleteCurrentUser();
       assert(deleted);
+    });
+
+    tearDown(() async {
+      // try to delete and ignore the result
+      // in case of a failed and terminated test flows
+      await useCaseUser.deleteCurrentUser();
     });
   });
 

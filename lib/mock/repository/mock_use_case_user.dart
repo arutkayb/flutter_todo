@@ -4,18 +4,6 @@ import 'package:flutter_starter/common/repository/use_cases/user/i_use_case_user
 
 class MockUseCaseUser extends UseCaseBase implements IUseCaseUser {
   @override
-  Future<User?> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> isUserLoggedIn() {
-    // TODO: implement isUserLoggedIn
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> logout() {
     // TODO: implement logout
     throw UnimplementedError();
@@ -36,6 +24,18 @@ class MockUseCaseUser extends UseCaseBase implements IUseCaseUser {
   @override
   Future<bool> signInWithEmail(String email, String password) {
     // TODO: implement signInWithEmail
+    throw UnimplementedError();
+  }
+
+  @override
+  User? getCurrentUser() {
+    // TODO: implement getCurrentUser
+    throw UnimplementedError();
+  }
+
+  @override
+  bool isUserLoggedIn() {
+    // TODO: implement isUserLoggedIn
     throw UnimplementedError();
   }
 }

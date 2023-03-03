@@ -7,9 +7,9 @@ abstract class IUseCaseUser {
 
   Future<bool> deleteCurrentUser();
 
-  Future<User?> getCurrentUser();
+  User? getCurrentUser();
 
-  Future<bool> isUserLoggedIn();
+  bool isUserLoggedIn();
 
   Future<void> logout();
 }

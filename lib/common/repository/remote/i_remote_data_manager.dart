@@ -6,6 +6,8 @@ import 'package:flutter_starter/common/models/board_task_comment.dart';
 import 'package:flutter_starter/common/models/user.dart';
 
 abstract class IRemoteDataManager {
+  Future<void> removeDirectory(String directory);
+
   // User
   Future<bool> createUserWithEmail(String email, String password);
 
@@ -13,9 +15,9 @@ abstract class IRemoteDataManager {
 
   Future<bool> deleteCurrentUser();
 
-  Future<User?> getCurrentUser();
+  User? getCurrentUser();
 
-  Future<bool> isUserLoggedIn();
+  bool isUserLoggedIn();
 
   Future<void> logout();
 

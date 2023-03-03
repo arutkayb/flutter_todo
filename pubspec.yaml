@@ -16,6 +16,7 @@ dependencies:
   equatable: ^2.0.3
   dio: ^4.0.6
   json_annotation: ^4.7.0
+  uuid: ^3.0.7
 
   firebase_ui_auth: 1.1.14
   firebase_auth: 4.2.9

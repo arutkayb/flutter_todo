@@ -129,18 +129,6 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<User?> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> isUserLoggedIn() {
-    // TODO: implement isUserLoggedIn
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> logout() {
     // TODO: implement logout
     throw UnimplementedError();
@@ -192,6 +180,24 @@ class MockRemoteDataManager implements IRemoteDataManager {
   @override
   Future<bool> deleteCurrentUser() {
     // TODO: implement deleteCurrentUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeDirectory(String directory) {
+    // TODO: implement removeDirectory
+    throw UnimplementedError();
+  }
+
+  @override
+  User? getCurrentUser() {
+    // TODO: implement getCurrentUser
+    throw UnimplementedError();
+  }
+
+  @override
+  bool isUserLoggedIn() {
+    // TODO: implement isUserLoggedIn
     throw UnimplementedError();
   }
 }

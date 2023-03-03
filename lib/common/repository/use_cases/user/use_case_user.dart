@@ -4,7 +4,7 @@ import 'package:flutter_starter/common/repository/use_cases/user/i_use_case_user
 
 class UseCaseUser extends UseCaseBase implements IUseCaseUser {
   @override
-  Future<bool> isUserLoggedIn() async {
+  bool isUserLoggedIn() {
     return remoteDataManager.isUserLoggedIn();
   }
 
@@ -14,7 +14,7 @@ class UseCaseUser extends UseCaseBase implements IUseCaseUser {
   }
 
   @override
-  Future<User?> getCurrentUser() async {
+  User? getCurrentUser() {
     return remoteDataManager.getCurrentUser();
   }
 

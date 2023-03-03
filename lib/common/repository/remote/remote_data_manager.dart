@@ -190,8 +190,8 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> isUserLoggedIn() async {
-    return (await getCurrentUser()) != null;
+  bool isUserLoggedIn() {
+    return (getCurrentUser()) != null;
   }
 
   @override
@@ -200,7 +200,7 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<User?> getCurrentUser() async {
+  User? getCurrentUser() {
     if (FirebaseAuth.instance.currentUser == null) {
       return null;
     }
@@ -238,5 +238,10 @@ class RemoteDataManager implements IRemoteDataManager {
       BoardTaskComment boardTaskComment) {
     // TODO: implement updateBoardTaskComment
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeDirectory(String directory) async {
+    // TODO: implement removeDirectory
   }
 }

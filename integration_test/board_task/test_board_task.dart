@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
+void run() {
   test("", () async {
     assert(true);
   });

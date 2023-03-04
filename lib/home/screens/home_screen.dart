@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/common/models/board.dart';
@@ -34,14 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flutter Starter"),
+        title: const Text('app_title').tr(),
         actions: [
           GestureDetector(
             onTap: _logout,
             child: Row(
-              children: const [
-                Text("Log-out"),
-                Icon(Icons.logout_outlined),
+              children: [
+                const Text("log_out").tr(),
+                const Icon(Icons.logout_outlined),
               ],
             ),
           ),
@@ -79,11 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if (boards.isEmpty) {
       widgets.add(SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: const Center(
-          child: Text(
-            "Your have no Boards yet\nCreate your first Board",
+        child: Center(
+          child: const Text(
+            "no_boards_created_indicator",
             textAlign: TextAlign.center,
-          ),
+          ).tr(),
         ),
       ));
     } else {

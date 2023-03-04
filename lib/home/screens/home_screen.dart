@@ -2,10 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_starter/common/models/board.dart';
+import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_bloc.dart';
+import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_event.dart';
+import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_state.dart';
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_bloc.dart';
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_event.dart';
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_state.dart';
+import 'package:flutter_starter/home/widgets/board_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,16 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: BlocListener<HomeScreenLoginBloc, HomeScreenLoginState>(
-          listener: (context, state) {
-            if (!state.isLoggedIn) {
-              Navigator.pushReplacementNamed(context, '/login');
-            }
-          },
-          child: Container(),
-        ),
-      ),
       appBar: AppBar(
         title: const Text("Flutter Starter"),
         actions: [
@@ -52,6 +47,67 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      body: SafeArea(
+        child: BlocListener<HomeScreenLoginBloc, HomeScreenLoginState>(
+          listener: (context, state) {
+            if (!state.isLoggedIn) {
+              Navigator.pushReplacementNamed(context, '/login');
+            }
+          },
+          child: BlocBuilder<HomeScreenBoardBloc, HomeScreenBoardState>(
+            builder: (context, state) {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _boardController.add(FetchBoardsTriggered());
+                },
+                child: CustomCircularProgressIndicator(
+                  show: state.fetching,
+                  child: _getBoards(state.boards),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+      floatingActionButton: _getFab(),
+    );
+  }
+
+  Widget _getBoards(List<Board> boards) {
+    List<Widget> widgets = List.empty(growable: true);
+
+    if (boards.isEmpty) {
+      widgets.add(SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: const Center(
+          child: Text(
+            "Your have no Boards yet\nCreate your first Board",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ));
+    } else {
+      for (var board in boards) {
+        widgets.add(BoardCard(board, _onBoardCardTap));
+      }
+    }
+
+    return ListView(
+      children: widgets,
+    );
+  }
+
+  void _onBoardCardTap() {
+    // TODO: navigate on tap
+  }
+
+  Widget _getFab() {
+    return FloatingActionButton(
+      heroTag: "createBoard",
+      onPressed: () {
+        // TODO: Navigate to board
+      },
+      child: const Icon(Icons.add),
     );
   }
 

@@ -90,15 +90,20 @@ class RemoteDataManager implements IRemoteDataManager {
 
     // get current user's boards
     Query query = ref.orderByChild("userId").equalTo(getCurrentUser()!.id);
-    final snapshot = await query.get();
+    try {
+      final snapshot = await query.get();
 
-    if (snapshot.exists && snapshot.children.isNotEmpty) {
-      final List<Board> list = List.empty(growable: true);
-      for (var element in snapshot.children) {
-        list.add(Board.fromJson(getMapFromSnapshot(element)));
+      if (snapshot.exists && snapshot.children.isNotEmpty) {
+        final List<Board> list = List.empty(growable: true);
+        for (var element in snapshot.children) {
+          list.add(Board.fromJson(getMapFromSnapshot(element)));
+        }
+        return list;
+      } else {
+        return List.empty();
       }
-      return list;
-    } else {
+    } catch(e){
+      print(e.toString());
       return List.empty();
     }
   }
@@ -160,7 +165,7 @@ class RemoteDataManager implements IRemoteDataManager {
   @override
   Future<BoardList?> fetchBoardList(String boardId, String boardListId) async {
     final ref =
-        _ref.child(_remoteDataPathUtil.getBoardListPath(boardId, boardListId));
+    _ref.child(_remoteDataPathUtil.getBoardListPath(boardId, boardListId));
     final snapshot = await ref.get();
 
     if (snapshot.exists && snapshot.children.isNotEmpty) {
@@ -199,10 +204,10 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<List<BoardTask>> fetchBoardTasks(
-      String boardId, String boardListId) async {
+  Future<List<BoardTask>> fetchBoardTasks(String boardId,
+      String boardListId) async {
     final ref =
-        _ref.child(_remoteDataPathUtil.getBoardTasksPath(boardId, boardListId));
+    _ref.child(_remoteDataPathUtil.getBoardTasksPath(boardId, boardListId));
 
     final snapshot = await ref.get();
 
@@ -218,8 +223,8 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTask?> fetchBoardTask(
-      String boardId, String boardListId, String id) async {
+  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId,
+      String id) async {
     final ref = _ref
         .child(_remoteDataPathUtil.getBoardTaskPath(boardId, boardListId, id));
     final snapshot = await ref.get();
@@ -249,7 +254,7 @@ class RemoteDataManager implements IRemoteDataManager {
     await ref.set(null);
 
     return (await fetchBoardTask(
-            boardTask.boardId, boardTask.boardListId, boardTask.id)) ==
+        boardTask.boardId, boardTask.boardListId, boardTask.id)) ==
         null;
   }
 
@@ -267,8 +272,8 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<List<BoardTaskComment>> fetchBoardTaskComments(
-      String boardId, String boardTaskId) async {
+  Future<List<BoardTaskComment>> fetchBoardTaskComments(String boardId,
+      String boardTaskId) async {
     final ref = _ref.child(
         _remoteDataPathUtil.getBoardTaskCommentsPath(boardId, boardTaskId));
 
@@ -288,15 +293,15 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskComment?> fetchBoardTaskComment(
-      String boardId, String boardTaskId, String id) async {
+  Future<BoardTaskComment?> fetchBoardTaskComment(String boardId,
+      String boardTaskId, String id) async {
     final ref = _ref.child(
         _remoteDataPathUtil.getBoardTaskCommentPath(boardId, boardTaskId, id));
     final snapshot = await ref.get();
 
     if (snapshot.exists && snapshot.children.isNotEmpty) {
       final boardTaskComment =
-          BoardTaskComment.fromJson(getMapFromSnapshot(snapshot));
+      BoardTaskComment.fromJson(getMapFromSnapshot(snapshot));
       return boardTaskComment;
     } else {
       return null;
@@ -325,7 +330,7 @@ class RemoteDataManager implements IRemoteDataManager {
     await ref.set(null);
 
     return (await fetchBoardTaskComment(boardTaskComment.boardId,
-            boardTaskComment.boardTaskId, boardTaskComment.id)) ==
+        boardTaskComment.boardTaskId, boardTaskComment.id)) ==
         null;
   }
 
@@ -341,8 +346,8 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(
-      String boardId, String boardTaskId) async {
+  Future<List<BoardTaskAlarm>> fetchBoardTaskAlarms(String boardId,
+      String boardTaskId) async {
     final ref = _ref.child(
         _remoteDataPathUtil.getBoardTaskAlarmsPath(boardId, boardTaskId));
 
@@ -360,15 +365,15 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(
-      String boardId, String boardTaskId, String id) async {
+  Future<BoardTaskAlarm?> fetchBoardTaskAlarm(String boardId,
+      String boardTaskId, String id) async {
     final ref = _ref.child(
         _remoteDataPathUtil.getBoardTaskAlarmPath(boardId, boardTaskId, id));
     final snapshot = await ref.get();
 
     if (snapshot.exists && snapshot.children.isNotEmpty) {
       final boardTaskAlarm =
-          BoardTaskAlarm.fromJson(getMapFromSnapshot(snapshot));
+      BoardTaskAlarm.fromJson(getMapFromSnapshot(snapshot));
       return boardTaskAlarm;
     } else {
       return null;
@@ -393,7 +398,7 @@ class RemoteDataManager implements IRemoteDataManager {
     await ref.set(null);
 
     return (await fetchBoardTaskAlarm(boardTaskAlarm.boardId,
-            boardTaskAlarm.boardTaskId, boardTaskAlarm.id)) ==
+        boardTaskAlarm.boardTaskId, boardTaskAlarm.id)) ==
         null;
   }
 }

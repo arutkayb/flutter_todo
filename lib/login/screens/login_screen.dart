@@ -32,21 +32,19 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocBuilder<LoginScreenCubit, LoginScreenState>(
           bloc: _controller,
           builder: (context, state) {
-            return CustomCircularProgressIndicator(
-                show: state.fetching ?? true,
-                child: SignInScreen(
-                  providers: [
-                    EmailAuthProvider(),
-                  ],
-                  actions: [
-                    AuthStateChangeAction<SigningUp>((context, authState) {
-                      _signUpAction();
-                    }),
-                    AuthStateChangeAction<SignedIn>((context, authState) {
-                      _checkLogin();
-                    }),
-                  ],
-                ));
+            return SignInScreen(
+              providers: [
+                EmailAuthProvider(),
+              ],
+              actions: [
+                AuthStateChangeAction<SigningUp>((context, authState) {
+                  _signUpAction();
+                }),
+                AuthStateChangeAction<SignedIn>((context, authState) {
+                  _checkLogin();
+                }),
+              ],
+            );
           },
         ),
       ),

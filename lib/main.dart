@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/common/configs/app_theme.dart';
-import 'package:flutter_starter/home/controllers/home_screen_cubit.dart';
-import 'package:flutter_starter/home/controllers/home_screen_state.dart';
+import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_bloc.dart';
+import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_state.dart';
+import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_bloc.dart';
+import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_state.dart';
 import 'package:flutter_starter/home/screens/home_screen.dart';
 import 'package:flutter_starter/injection.dart';
 import 'package:flutter_starter/login/controllers/login_screen_cubit.dart';
@@ -35,12 +37,18 @@ class MyApp extends StatelessWidget {
           );
         },
         '/home': (context) {
-          return BlocProvider<HomeScreenCubit>(
-            create: (BuildContext context) => HomeScreenCubit(
-              const HomeScreenState(),
+          return MultiBlocProvider(providers: [
+            BlocProvider<HomeScreenLoginBloc>(
+              create: (BuildContext context) => HomeScreenLoginBloc(
+                HomeScreenLoginState(isLoggedIn: true),
+              ),
             ),
-            child: const HomeScreen(),
-          );
+            BlocProvider<HomeScreenBoardBloc>(
+              create: (BuildContext context) => HomeScreenBoardBloc(
+                HomeScreenBoardState(),
+              ),
+            ),
+          ], child: const HomeScreen());
         },
       },
       debugShowCheckedModeBanner: false,

@@ -4,10 +4,12 @@ import 'package:flutter_starter/injection.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../helper/board_helper.dart';
+import '../helper/setup_helper.dart';
 import '../helper/user_helper.dart';
 
-void run() {
+void main() async {
+  await setupTestDependencies();
+
   IUseCaseBoardTaskComment useCaseBoardTaskComment =
       locator.get<IUseCaseBoardTaskComment>();
 
@@ -16,24 +18,30 @@ void run() {
   final boardId = generateUid();
   const content = "Comment content";
 
-  test("createBoardTaskComment and fetchBoardTaskComments", () async {
+  Future<BoardTaskComment?> createBoardTaskComment() async {
     final user = getCurrentUser();
-    final board = await createBoard(boardId);
-    final boardList = await createBoardList(board);
-    final boardTask = await createBoardTask(boardList, boardTaskId);
 
     BoardTaskComment newBoardTaskComment =
         BoardTaskComment(boardTaskCommentId, user.id, boardId, boardTaskId)
           ..content = content;
-    final created = await useCaseBoardTaskComment
+    return await useCaseBoardTaskComment
         .createBoardTaskComment(newBoardTaskComment);
+  }
+
+  test("createBoardTaskComment", () async {
+    final user = getCurrentUser();
+    final created = await createBoardTaskComment();
 
     assert(created != null);
     assert(created?.id == boardTaskCommentId);
-    assert(created?.boardTaskId == boardTask.id);
-    assert(created?.boardId == board.id);
+    assert(created?.boardTaskId == boardTaskId);
+    assert(created?.boardId == boardId);
     assert(created?.userId == user.id);
     assert(created?.content == content);
+  });
+
+  test("fetchBoardTaskComments", () async {
+    await createBoardTaskComment();
 
     List<BoardTaskComment> boardTaskComments = await useCaseBoardTaskComment
         .fetchBoardTaskComments(boardId, boardTaskId);
@@ -42,6 +50,8 @@ void run() {
   });
 
   test("fetchBoardTaskComment", () async {
+    await createBoardTaskComment();
+
     final boardTaskComment = await useCaseBoardTaskComment
         .fetchBoardTaskComment(boardId, boardTaskId, boardTaskCommentId);
     assert(boardTaskComment != null);
@@ -49,6 +59,8 @@ void run() {
   });
 
   test("updateBoardTaskComment", () async {
+    await createBoardTaskComment();
+
     final boardTaskComment = await useCaseBoardTaskComment
         .fetchBoardTaskComment(boardId, boardTaskId, boardTaskCommentId);
     assert(boardTaskComment != null);
@@ -63,6 +75,8 @@ void run() {
   });
 
   test("deleteBoardTaskComment", () async {
+    await createBoardTaskComment();
+
     final BoardTaskComment? boardTaskComment = await useCaseBoardTaskComment
         .fetchBoardTaskComment(boardId, boardTaskId, boardTaskCommentId);
     assert(boardTaskComment != null);

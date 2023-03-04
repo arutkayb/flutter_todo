@@ -5,8 +5,12 @@ import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helper/board_helper.dart';
+import '../helper/setup_helper.dart';
+import '../helper/user_helper.dart';
 
-void run() {
+void main() async {
+  await setupTestDependencies();
+
   IUseCaseBoardTask useCaseBoardTask = locator.get<IUseCaseBoardTask>();
 
   final boardTaskId = generateUid();
@@ -15,28 +19,38 @@ void run() {
 
   const boardTaskTitle = "Created BoardTask";
 
-  test("createBoardTask and fetchBoardTasks", () async {
+  Future<BoardTask?> createBoardTask() async {
     final board = await createBoard(boardId);
     final boardList = await createBoardList(board, boardListId);
 
     BoardTask newBoardTask =
         BoardTask(boardTaskId, boardList.boardId, boardList.id)
           ..title = boardTaskTitle;
-    final created = await useCaseBoardTask.createBoardTask(newBoardTask);
+    return await useCaseBoardTask.createBoardTask(newBoardTask);
+  }
+
+  test("createBoardTask", () async {
+    final created = await createBoardTask();
 
     assert(created != null);
     assert(created?.id == boardTaskId);
-    assert(created?.boardListId == boardList.id);
-    assert(created?.boardId == board.id);
+    assert(created?.boardListId == boardListId);
+    assert(created?.boardId == boardId);
     assert(created?.title == boardTaskTitle);
+  });
+
+  test("fetchBoardTasks", () async {
+    await createBoardTask();
 
     List<BoardTask> boardTasks =
-        await useCaseBoardTask.fetchBoardTasks(board.id, boardList.id);
+        await useCaseBoardTask.fetchBoardTasks(boardId, boardListId);
     assert(boardTasks.length == 1);
     assert(boardTasks[0].id == boardTaskId);
   });
 
   test("fetchBoardTask", () async {
+    await createBoardTask();
+
     final boardTask = await useCaseBoardTask.fetchBoardTask(
         boardId, boardListId, boardTaskId);
     assert(boardTask != null);
@@ -46,6 +60,8 @@ void run() {
   });
 
   test("updateBoardTask", () async {
+    await createBoardTask();
+
     final boardTask = await useCaseBoardTask.fetchBoardTask(
         boardId, boardListId, boardTaskId);
     assert(boardTask != null);
@@ -59,6 +75,8 @@ void run() {
   });
 
   test("deleteBoardTask", () async {
+    await createBoardTask();
+
     final BoardTask? boardTask = await useCaseBoardTask.fetchBoardTask(
         boardId, boardListId, boardTaskId);
     assert(boardTask != null);

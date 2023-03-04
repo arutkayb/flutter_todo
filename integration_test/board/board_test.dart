@@ -4,22 +4,30 @@ import 'package:flutter_starter/injection.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helper/setup_helper.dart';
 import '../helper/user_helper.dart';
 
-void run() {
-  IUseCaseBoard useCaseBoard = locator.get<IUseCaseBoard>();
+void main() async {
+  await setupTestDependencies();
 
-  final user = getCurrentUser();
+  IUseCaseBoard useCaseBoard = locator.get<IUseCaseBoard>();
 
   final uid = generateUid();
   const boardName = "Created Board";
   const boardDescription = "Created Board Description";
 
-  test("createBoard", () async {
+  Future<Board?> createBoard() async {
+    final user = getCurrentUser();
+
     Board newBoard = Board(uid, user.id)
       ..name = boardName
       ..description = boardDescription;
-    final created = await useCaseBoard.createBoard(newBoard);
+
+    return await useCaseBoard.createBoard(newBoard);
+  }
+
+  test("createBoard", () async {
+    final created = await createBoard();
 
     assert(created != null);
     assert(created?.id == uid);
@@ -28,18 +36,24 @@ void run() {
   });
 
   test("fetchBoard", () async {
+    await createBoard();
+
     final board = await useCaseBoard.fetchBoard(uid);
     assert(board != null);
     assert(board?.id == uid);
   });
 
   test("fetchBoards", () async {
+    await createBoard();
+
     List<Board> boards = await useCaseBoard.fetchBoards();
     assert(boards.length == 1);
     assert(boards[0].id == uid);
   });
 
   test("updateBoard", () async {
+    await createBoard();
+
     final board = await useCaseBoard.fetchBoard(uid);
     assert(board != null);
 
@@ -55,6 +69,8 @@ void run() {
   });
 
   test("deleteBoard", () async {
+    await createBoard();
+
     final board = await useCaseBoard.fetchBoard(uid);
     assert(board != null);
 

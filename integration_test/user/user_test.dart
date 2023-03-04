@@ -3,9 +3,12 @@ import 'package:flutter_starter/injection.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../remote_data_integration_test.dart';
+import '../helper/setup_helper.dart';
+import '../helper/user_helper.dart';
 
-void run() {
+void main() async {
+  await setupTestDependencies(false);
+
   IUseCaseUser useCaseUser = locator.get<IUseCaseUser>();
 
   group('Test user creation', () {
@@ -33,30 +36,21 @@ void run() {
 
   group('Integration tester operations', () {
     test("User signed in", () async {
-      try {
-        await useCaseUser.createUserWithEmail(integrationTesterUser,
-            integrationTestPassword); //  creates the integration tester if it is not created, ignore the result
-      } catch (e) {
-        print(e.toString());
-        // ignore
-      }
-
-      final signedIn = await useCaseUser.signInWithEmail(
-          integrationTesterUser, integrationTestPassword);
-      assert(signedIn);
+      final signedIn = await integrationTesterSignIn();
+      assert(signedIn != null);
     });
 
     test("User get", () async {
-      final user = await useCaseUser.getCurrentUser();
+      final user = useCaseUser.getCurrentUser();
       assert(user?.email == integrationTesterUser);
     });
 
     test("User logout", () async {
       await useCaseUser.logout();
-      final currentUser = await useCaseUser.getCurrentUser();
+      final currentUser = useCaseUser.getCurrentUser();
 
       assert(currentUser == null);
-      assert(await useCaseUser.isUserLoggedIn() == false);
+      assert(useCaseUser.isUserLoggedIn() == false);
     });
   });
 }

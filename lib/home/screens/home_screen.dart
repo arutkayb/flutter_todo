@@ -45,12 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
             onTap: _logout,
-            child: Row(
-              children: [
-                const Text("log_out").tr(),
-                const Icon(Icons.logout_outlined),
-              ],
-            ),
+            child: _getPopupMenu(),
           ),
         ],
       ),
@@ -78,6 +73,47 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: _getFab(),
     );
+  }
+
+  Widget _getPopupMenu() {
+    return PopupMenuButton<void Function()>(
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            onTap: _showStatistics,
+            child: const Text("statistics").tr(),
+          ),
+          PopupMenuItem(
+            onTap: _exportCsv,
+            child: const Text("export_csv").tr(),
+          ),
+          PopupMenuItem(
+            onTap: _importCsv,
+            child: const Text("import_csv").tr(),
+          ),
+          PopupMenuItem(
+            onTap: _logout,
+            child: const Text(
+              "log_out",
+              style: TextStyle(color: Colors.red),
+            ).tr(),
+          ),
+        ];
+      },
+      onSelected: (fn) => fn(),
+    );
+  }
+
+  void _showStatistics() {
+    // TODO:
+  }
+
+  void _exportCsv() {
+    // TODO:
+  }
+
+  void _importCsv() {
+    // TODO:
   }
 
   Widget _getBoards(List<Board> boards) {

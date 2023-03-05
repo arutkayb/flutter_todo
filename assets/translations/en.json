@@ -34,5 +34,8 @@
   "task_title_cannot_be_empty": "Task title cannot be empty",
   "task_saved": "Task saved",
   "add_new_comment": "Add new comment",
-  "new_comment": "New comment"
+  "new_comment": "New comment",
+  "statistics": "Statistics",
+  "export_csv": "Export csv",
+  "import_csv": "Import csv"
 }

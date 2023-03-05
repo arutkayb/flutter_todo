@@ -7,7 +7,7 @@ part of 'board_task.dart';
 // **************************************************************************
 
 BoardTask _$BoardTaskFromJson(Map<String, dynamic> json) => BoardTask(
-      json['id'] as String,
+      json['id'] as String?,
       json['boardId'] as String,
       json['boardListId'] as String,
     )

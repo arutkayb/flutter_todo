@@ -6,7 +6,7 @@ part 'board_task.g.dart';
 @JsonSerializable()
 class BoardTask {
   // primary key
-  String id;
+  String? id;
 
   // foreign key
   String boardId;
@@ -19,6 +19,8 @@ class BoardTask {
   TaskLabel? label;
   DateTime? dateStart;
   DateTime? dateEnd;
+
+  BoardTask.withoutId(this.boardId, this.boardListId);
 
   BoardTask(this.id, this.boardId, this.boardListId);
 

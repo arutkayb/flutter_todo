@@ -23,7 +23,7 @@ void main() async {
     final boardTask = await createBoardTask(boardList, boardTaskId);
 
     BoardTaskAlarm newBoardTaskAlarm =
-        BoardTaskAlarm(boardTaskAlarmId, board.id, boardTask.id)
+        BoardTaskAlarm(boardTaskAlarmId, board.id, boardTask.id!)
           ..dueDate = boardTaskAlarmDueDate;
     return await useCaseBoardTaskAlarm.createBoardTaskAlarm(newBoardTaskAlarm);
   }
@@ -46,7 +46,7 @@ void main() async {
     final boardTask = await createBoardTask(boardList, boardTaskId);
 
     BoardTaskAlarm newBoardTaskAlarm =
-        BoardTaskAlarm(boardTaskAlarmId, board.id, boardTask.id)
+        BoardTaskAlarm(boardTaskAlarmId, board.id, boardTask.id!)
           ..dueDate = boardTaskAlarmDueDate;
     final created =
         await useCaseBoardTaskAlarm.createBoardTaskAlarm(newBoardTaskAlarm);

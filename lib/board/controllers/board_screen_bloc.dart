@@ -24,11 +24,33 @@ class BoardScreenBloc extends Bloc<dynamic, BoardScreenState> {
       final fullBoard = await _fetchFullBoard();
       emit(BoardScreenState(fullBoard));
     });
+
+    on<UpdateBoardList>((event, emit) async {
+      emit(BoardScreenState.fetching(state, true));
+      await _updateBoardList(event.boardList);
+      final fullBoard = await _fetchFullBoard();
+      emit(BoardScreenState(fullBoard));
+    });
+
+    on<DeleteBoardList>((event, emit) async {
+      emit(BoardScreenState.fetching(state, true));
+      await _deleteBoardList(event.boardList);
+      final fullBoard = await _fetchFullBoard();
+      emit(BoardScreenState(fullBoard));
+    });
   }
 
   Future<BoardList?> _createBoardList(String name) {
     return _useCaseBoardList.createBoardList(
         BoardList.withUid(state.fullBoard!.board.id)..name = name);
+  }
+
+  Future<bool> _deleteBoardList(BoardList boardList) async {
+    return _useCaseBoardList.deleteBoardList(boardList);
+  }
+
+  Future<BoardList?> _updateBoardList(BoardList boardList) async {
+    return _useCaseBoardList.updateBoardList(boardList);
   }
 
   Future<FullBoard> _fetchFullBoard() async {

@@ -6,9 +6,11 @@ import 'package:flutter_starter/board/controllers/board_screen_event.dart';
 import 'package:flutter_starter/board/controllers/board_screen_state.dart';
 import 'package:flutter_starter/board/widgets/board_list_view.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
+import 'package:flutter_starter/common/models/board_task.dart';
 import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
 import 'package:flutter_starter/utils/dialog_utils.dart';
+import 'package:flutter_starter/utils/navigation_utils.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
 class BoardScreen extends StatefulWidget {
@@ -72,42 +74,80 @@ class _BoardScreenState extends State<BoardScreen> {
     List<Widget> listWidgets = List.empty(growable: true);
     if (boardLists != null && boardLists.isNotEmpty) {
       for (var boardList in boardLists) {
-        listWidgets.add(BoardListView(boardList, onDeleteList: () {
-          //TODO delete
-        }, onAddListItem: () {
-          //TODO add
-        }));
+        List<BoardTask>? boardTasks;
+        try {
+          final List<BoardTask>? allTasks =
+              _boardController.state.fullBoard.boardTasks;
+
+          if (allTasks != null) {
+            boardTasks = allTasks
+                .where((boardTask) => boardTask.boardListId == boardList.id)
+                .toList();
+          }
+        } catch (e) {
+          // ignore
+        }
+
+        listWidgets.add(
+          BoardListView(
+            boardList,
+            boardTasks,
+            onDeleteList: () {
+              if (boardTasks == null || boardTasks.isEmpty) {
+                _boardController.add(DeleteBoardList(boardList));
+              } else {
+                showSafeDialog(context,
+                    title: "delete_list".tr(),
+                    content: "cannot_delete_list".tr());
+              }
+            },
+            onAddListItem: () async {
+              final boardId = _boardController.state.fullBoard.board.id;
+
+              await NavigationUtils.navigateToBoardTask(
+                context,
+                BoardTask.withoutId(boardId, boardList.id),
+                boardLists,
+              );
+            },
+            onRenameList: (value) {
+              _boardController.add(UpdateBoardList(boardList..name = value));
+            },
+          ),
+        );
       }
     }
 
     listWidgets.add(
-      TextButton(
-        onPressed: () {
-          showSafeChooseActionTextInputDialog(
-            context,
-            title: "add_new_list".tr(),
-            actionButton1: "complete".tr(),
-            action1: () {
-              _boardController.add(CreateBoardList(
-                  _createdBoardListName ?? "board_list_name".tr()));
-            },
-            details: [
-              CustomTextInputDetail(
-                  label: "board_list_name".tr(),
-                  onFieldChanged: (value) {
-                    _createdBoardListName = value;
-                  }),
-            ],
-          );
-        },
+      Center(
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
             color: Colors.black12,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
-          child: Text(
-            "add_new_list".tr(),
+          child: GestureDetector(
+            onTap: () {
+              showSafeChooseActionTextInputDialog(
+                context,
+                title: "add_new_list".tr(),
+                actionButton1: "complete".tr(),
+                action1: () {
+                  _boardController.add(CreateBoardList(
+                      _createdBoardListName ?? "board_list_name".tr()));
+                },
+                details: [
+                  CustomTextInputDetail(
+                      label: "board_list_name".tr(),
+                      onFieldChanged: (value) {
+                        _createdBoardListName = value;
+                      }),
+                ],
+              );
+            },
+            child: Text(
+              "add_new_list".tr(),
+            ),
           ),
         ),
       ),

@@ -23,6 +23,8 @@ class BoardTaskScreen extends StatefulWidget {
 
 class _BoardTaskScreenState extends State<BoardTaskScreen> {
   late BoardTaskScreenBloc _boardTaskController;
+  String? _taskTitle;
+  String? _taskDescription;
 
   @override
   void initState() {
@@ -32,6 +34,19 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return CustomTextInputWidget([
+      CustomTextInputDetail(
+        onFieldChanged: (value) {
+          _taskTitle = value;
+        },
+        label: "task_title".tr(),
+      ),
+      CustomTextInputDetail(
+        onFieldChanged: (value) {
+          _taskDescription = value;
+        },
+        label: "task_description".tr(),
+      ),
+    ]);
   }
 }

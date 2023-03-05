@@ -1,15 +1,37 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
+import 'package:flutter_starter/common/models/board_task.dart';
+import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
+import 'package:flutter_starter/utils/dialog_utils.dart';
 
-class BoardListView extends StatelessWidget {
+class BoardListView extends StatefulWidget {
   final BoardList boardList;
+  final List<BoardTask>? boardTasks;
   final Function onDeleteList;
+  final Function(String) onRenameList;
   final Function onAddListItem;
 
-  const BoardListView(this.boardList,
-      {required this.onDeleteList, required this.onAddListItem, Key? key})
+  const BoardListView(this.boardList, this.boardTasks,
+      {required this.onDeleteList,
+      required this.onAddListItem,
+      required this.onRenameList,
+      Key? key})
       : super(key: key);
+
+  @override
+  State<BoardListView> createState() => _BoardListViewState();
+}
+
+class _BoardListViewState extends State<BoardListView> {
+  late String _listName;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _listName = widget.boardList.name!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +41,44 @@ class BoardListView extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
       child: ListTile(
-        trailing: IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: () {
-            onDeleteList();
+        trailing: PopupMenuButton<void Function()>(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: () {
+                  widget.onDeleteList();
+                },
+                child: const Text("delete_list").tr(),
+              ),
+              PopupMenuItem(
+                value: () {
+                  showSafeChooseActionTextInputDialog(
+                    context,
+                    title: "rename_list".tr(),
+                    actionButton1: "complete".tr(),
+                    action1: () {
+                      if (_listName.isNotEmpty &&
+                          _listName != widget.boardList.name) {
+                        widget.onRenameList(_listName);
+                      }
+                    },
+                    details: [
+                      CustomTextInputDetail(
+                          onFieldChanged: (value) {
+                            _listName = value;
+                          },
+                          label: "board_list_name".tr())
+                    ],
+                  );
+                },
+                child: const Text("rename_list").tr(),
+              ),
+            ];
           },
+          onSelected: (fn) => fn(),
         ),
         title: Text(
-          boardList.name ?? "new_list".tr(),
+          widget.boardList.name ?? "new_list".tr(),
           textAlign: TextAlign.center,
         ),
       ),
@@ -43,7 +95,7 @@ class BoardListView extends StatelessWidget {
           child: IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              onAddListItem();
+              widget.onAddListItem();
             },
           ),
         ),

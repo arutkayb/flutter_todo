@@ -88,15 +88,18 @@ class RemoteDataManager implements IRemoteDataManager {
   Future<List<Board>> fetchBoards() async {
     final ref = _ref.child(_remoteDataPathUtil.getBoardsPath());
 
-    // get current user's boards
-    Query query = ref.orderByChild("userId").equalTo(getCurrentUser()!.id);
     try {
-      final snapshot = await query.get();
+      final snapshot = await ref.get();
 
       if (snapshot.exists && snapshot.children.isNotEmpty) {
         final List<Board> list = List.empty(growable: true);
         for (var element in snapshot.children) {
-          list.add(Board.fromJson(getMapFromSnapshot(element)));
+          final board = Board.fromJson(getMapFromSnapshot(element));
+
+          // get current user's boards
+          if (getCurrentUser()!.id == board.userId) {
+            list.add(board);
+          }
         }
         return list;
       } else {
@@ -195,11 +198,15 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<BoardTask?> createBoardTask(BoardTask boardTask) async {
+    if (boardTask.id == null) {
+      return null;
+    }
+
     final ref = _ref.child(
-        _remoteDataPathUtil.getBoardTaskPath(boardTask.boardId, boardTask.id));
+        _remoteDataPathUtil.getBoardTaskPath(boardTask.boardId, boardTask.id!));
     await ref.set(boardTask.toJson());
 
-    return fetchBoardTask(boardTask.boardId, boardTask.id);
+    return fetchBoardTask(boardTask.boardId, boardTask.id!);
   }
 
   @override
@@ -234,20 +241,28 @@ class RemoteDataManager implements IRemoteDataManager {
 
   @override
   Future<BoardTask?> updateBoardTask(BoardTask boardTask) async {
+    if (boardTask.id == null) {
+      return null;
+    }
+
     final ref = _ref.child(
-        _remoteDataPathUtil.getBoardTaskPath(boardTask.boardId, boardTask.id));
+        _remoteDataPathUtil.getBoardTaskPath(boardTask.boardId, boardTask.id!));
     await ref.update(boardTask.toJson());
 
-    return fetchBoardTask(boardTask.boardId, boardTask.id);
+    return fetchBoardTask(boardTask.boardId, boardTask.id!);
   }
 
   @override
   Future<bool> deleteBoardTask(BoardTask boardTask) async {
+    if (boardTask.id == null) {
+      return false;
+    }
+
     final ref = _ref.child(
-        _remoteDataPathUtil.getBoardTaskPath(boardTask.boardId, boardTask.id));
+        _remoteDataPathUtil.getBoardTaskPath(boardTask.boardId, boardTask.id!));
     await ref.set(null);
 
-    return (await fetchBoardTask(boardTask.boardId, boardTask.id)) == null;
+    return (await fetchBoardTask(boardTask.boardId, boardTask.id!)) == null;
   }
 
   @override

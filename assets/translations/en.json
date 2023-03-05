@@ -12,5 +12,10 @@
   "delete_board_content": "Are you sure you want to delete the board?",
   "new_list": "New List",
   "add_new_list": "Add List",
-  "board_list_name": "List Name"
+  "board_list_name": "List Name",
+  "task_title": "Task title",
+  "task_description": "Task description",
+  "delete_list": "Delete List",
+  "rename_list": "Rename List",
+  "cannot_delete_list": "Cannot delete a List with Tasks"
 }

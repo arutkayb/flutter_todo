@@ -3,6 +3,7 @@ import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_boa
 import 'package:flutter_starter/injection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helper/board_helper.dart';
 import '../helper/setup_helper.dart';
 
 void main() async {
@@ -39,6 +40,21 @@ void main() async {
     List<Board> boards = await useCaseBoard.fetchBoards();
     assert(boards.length == 1);
     assert(boards[0].id == created!.id);
+  });
+
+  test("fetchBoards with Lists and Tasks", () async {
+    final created = await createBoard();
+    assert(created != null);
+
+    final boardList = await createBoardList(created!);
+    assert(boardList.boardId == created.id);
+
+    final boardTask = await createBoardTask(boardList);
+    assert(boardTask.boardId == created.id);
+
+    List<Board> boards = await useCaseBoard.fetchBoards();
+    assert(boards.length == 1);
+    assert(boards[0].id == created.id);
   });
 
   test("updateBoard", () async {

@@ -73,6 +73,14 @@ class _BoardScreenState extends State<BoardScreen> {
   Widget _getBoardLists(List<BoardList>? boardLists) {
     List<Widget> listWidgets = List.empty(growable: true);
     if (boardLists != null && boardLists.isNotEmpty) {
+      boardLists.sort((a, b) {
+        if (a.dateCreated != null && b.dateCreated != null) {
+          return a.dateCreated!.compareTo(b.dateCreated!) > 0 ? 1 : 0;
+        } else {
+          return 0;
+        }
+      });
+
       for (var boardList in boardLists) {
         List<BoardTask>? boardTasks;
         try {
@@ -110,8 +118,9 @@ class _BoardScreenState extends State<BoardScreen> {
                 boardLists,
               );
             },
-            onRenameList: (value) {
-              _boardController.add(UpdateBoardList(boardList..name = value));
+            onRenameList: (name) {
+              _boardController
+                  .add(UpdateBoardList(boardList.clone()..name = name));
             },
           ),
         );

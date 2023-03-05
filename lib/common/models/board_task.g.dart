@@ -19,7 +19,10 @@ BoardTask _$BoardTaskFromJson(Map<String, dynamic> json) => BoardTask(
           : DateTime.parse(json['dateStart'] as String)
       ..dateEnd = json['dateEnd'] == null
           ? null
-          : DateTime.parse(json['dateEnd'] as String);
+          : DateTime.parse(json['dateEnd'] as String)
+      ..dateCreated = json['dateCreated'] == null
+          ? null
+          : DateTime.parse(json['dateCreated'] as String);
 
 Map<String, dynamic> _$BoardTaskToJson(BoardTask instance) => <String, dynamic>{
       'id': instance.id,
@@ -30,6 +33,7 @@ Map<String, dynamic> _$BoardTaskToJson(BoardTask instance) => <String, dynamic>{
       'label': _$TaskLabelEnumMap[instance.label],
       'dateStart': instance.dateStart?.toIso8601String(),
       'dateEnd': instance.dateEnd?.toIso8601String(),
+      'dateCreated': instance.dateCreated?.toIso8601String(),
     };
 
 const _$TaskLabelEnumMap = {

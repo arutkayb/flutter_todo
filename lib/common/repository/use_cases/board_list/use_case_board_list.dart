@@ -7,7 +7,7 @@ import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
 class UseCaseBoardList extends UseCaseBase implements IUseCaseBoardList {
   @override
   Future<BoardList?> createBoardList(BoardList boardList) {
-    return remoteDataManager.createBoardList(boardList);
+    return remoteDataManager.createBoardList(boardList..dateCreated = DateTime.now());
   }
 
   @override

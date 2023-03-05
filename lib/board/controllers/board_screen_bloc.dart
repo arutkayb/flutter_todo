@@ -6,6 +6,7 @@ import 'package:flutter_starter/common/models/full_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board_list/i_use_case_board_list.dart';
 import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/utils/string_utils.dart';
 
 class BoardScreenBloc extends Bloc<dynamic, BoardScreenState> {
   final IUseCaseBoard _useCaseBoard = locator.get<IUseCaseBoard>();
@@ -41,8 +42,10 @@ class BoardScreenBloc extends Bloc<dynamic, BoardScreenState> {
   }
 
   Future<BoardList?> _createBoardList(String name) {
+    name = renameListWithSameName(name)!;
+
     return _useCaseBoardList.createBoardList(
-        BoardList.withUid(state.fullBoard!.board.id)..name = name);
+        BoardList.withUid(state.fullBoard.board.id)..name = name);
   }
 
   Future<bool> _deleteBoardList(BoardList boardList) async {
@@ -50,10 +53,28 @@ class BoardScreenBloc extends Bloc<dynamic, BoardScreenState> {
   }
 
   Future<BoardList?> _updateBoardList(BoardList boardList) async {
+    boardList.name = renameListWithSameName(boardList.name);
+
     return _useCaseBoardList.updateBoardList(boardList);
   }
 
   Future<FullBoard> _fetchFullBoard() async {
     return (await _useCaseBoard.fetchFullBoard(state.fullBoard.board.id))!;
+  }
+
+  String? renameListWithSameName(String? name) {
+    String? newName = name;
+
+    try {
+      var found =
+          state.fullBoard.boardLists?.firstWhere((list) => list.name == name);
+      if (found != null) {
+        return "$newName (${generateUid()})";
+      }
+    } catch (e) {
+      //ignore
+    }
+
+    return newName;
   }
 }

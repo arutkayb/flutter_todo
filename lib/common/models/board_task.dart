@@ -20,6 +20,8 @@ class BoardTask {
   DateTime? dateStart;
   DateTime? dateEnd;
 
+  DateTime? dateCreated;
+
   BoardTask.withoutId(this.boardId, this.boardListId);
 
   BoardTask(this.id, this.boardId, this.boardListId);

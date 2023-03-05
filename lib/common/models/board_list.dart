@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,10 +15,18 @@ class BoardList {
 
   String? name;
 
-  BoardList(this.id, this.boardId);
-  BoardList.withUid(this.boardId): id=generateUid();
+  DateTime? dateCreated;
 
-  factory BoardList.fromJson(Map<String, dynamic> json) => _$BoardListFromJson(json);
+  BoardList(this.id, this.boardId);
+
+  BoardList.withUid(this.boardId) : id = generateUid();
+
+  BoardList clone() {
+    return BoardList.fromJson(jsonDecode(jsonEncode(toJson())));
+  }
+
+  factory BoardList.fromJson(Map<String, dynamic> json) =>
+      _$BoardListFromJson(json);
 
   Map<String, dynamic> toJson() => _$BoardListToJson(this);
 }

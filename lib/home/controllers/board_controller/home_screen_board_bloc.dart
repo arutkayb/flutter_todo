@@ -30,11 +30,24 @@ class HomeScreenBoardBloc
       final boards = await _fetchBoards();
       emit(HomeScreenBoardState.withBoards(boards));
     });
+
+    on<BoardDeleted>((event, emit) async {
+      // TODO: Do not fetch, just update the board with local value
+      emit(HomeScreenBoardState.fetching(state, true));
+      await _deleteBoard(event.board); // TODO: Check for errors and notify the user
+      final boards = await _fetchBoards();
+      emit(HomeScreenBoardState.withBoards(boards));
+    });
   }
 
   Future<Board?> _createBoard(String boardName, String? boardDescription) async{
     return await _useCaseBoard.createBoard(boardName, boardDescription);
   }
+
+  Future<bool?> _deleteBoard(Board board) async{
+    return await _useCaseBoard.deleteBoard(board.id);
+  }
+
 
   Future<List<Board>> _fetchBoards() async {
     return await _useCaseBoard.fetchBoards();

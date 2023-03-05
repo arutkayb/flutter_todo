@@ -97,9 +97,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ));
     } else {
       for (var board in boards) {
-        widgets.add(BoardCard(board, () {
-          _onBoardCardTap(board);
-        }));
+        widgets.add(BoardCard(
+          board,
+          onTap: () {
+            _onBoardCardTap(board);
+          },
+          onDelete: () {
+            _onBoardCardDelete(board);
+          },
+        ));
       }
     }
 
@@ -111,6 +117,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onBoardCardTap(Board board) async {
     await NavigationUtils.navigateToBoard(context, board);
     _boardController.add(BoardUpdated());
+  }
+
+  void _onBoardCardDelete(Board board) async {
+    showSafeConfirmationDialog(context,
+        title: "delete_board_title".tr(),
+        content: "delete_board_content".tr(), confirmAction: () {
+      _boardController.add(BoardDeleted(board));
+    });
   }
 
   Widget _getFab() {

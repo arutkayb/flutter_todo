@@ -4,8 +4,11 @@ import 'package:flutter_starter/common/models/board.dart';
 class BoardCard extends StatelessWidget {
   final Board board;
   final Function() onTap;
+  final Function onDelete;
 
-  const BoardCard(this.board, this.onTap, {Key? key}) : super(key: key);
+  const BoardCard(this.board,
+      {required this.onTap, required this.onDelete, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,12 @@ class BoardCard extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: const Icon(Icons.dashboard),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () {
+            onDelete();
+          },
+        ),
         title: Text(
           title,
           maxLines: 1,

@@ -7,5 +7,7 @@
   "complete": "Complete",
   "board_name": "Board Name",
   "board_description": "Board Description",
-  "new_board": "New Board"
+  "new_board": "New Board",
+  "delete_board_title": "Delete Board",
+  "delete_board_content": "Are you sure you want to delete the board?"
 }

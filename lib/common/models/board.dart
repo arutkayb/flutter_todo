@@ -10,10 +10,10 @@ class Board {
   // foreign key
   String userId;
 
-  String? name;
+  String name;
   String? description;
 
-  Board(this.id, this.userId);
+  Board(this.id, this.userId, this.name, [this.description]);
 
   factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);
 

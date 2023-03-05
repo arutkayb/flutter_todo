@@ -1,11 +1,17 @@
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
+import 'package:flutter_starter/utils/string_utils.dart';
 
 class UseCaseBoard extends UseCaseBase implements IUseCaseBoard {
   @override
-  Future<Board?> createBoard(Board board) {
-    return remoteDataManager.createBoard(board);
+  Future<Board?> createBoard(String boardName, String? boardDescription) {
+    return remoteDataManager.createBoard(Board(
+      generateUid(),
+      remoteDataManager.getCurrentUser()!.id,
+      boardName,
+      boardDescription,
+    ));
   }
 
   @override

@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../helper/board_helper.dart';
 import '../helper/setup_helper.dart';
-import '../helper/user_helper.dart';
 
 void main() async {
   await setupTestDependencies();
@@ -16,11 +15,10 @@ void main() async {
 
   final boardTaskAlarmId = generateUid();
   final boardTaskId = generateUid();
-  final boardId = generateUid();
   final boardTaskAlarmDueDate = DateTime.now();
+  final board = await createBoard();
 
   Future<BoardTaskAlarm?> createBoardTaskAlarm() async {
-    final board = await createBoard(boardId);
     final boardList = await createBoardList(board);
     final boardTask = await createBoardTask(boardList, boardTaskId);
 
@@ -35,7 +33,7 @@ void main() async {
 
     assert(created != null);
     assert(created?.id == boardTaskAlarmId);
-    assert(created?.boardId == boardId);
+    assert(created?.boardId == board.id);
     assert(created?.boardTaskId == boardTaskId);
     assert(created?.dueDate == boardTaskAlarmDueDate);
   });
@@ -43,7 +41,7 @@ void main() async {
   test("fetchBoardTaskAlarms", () async {
     await createBoardTaskAlarm();
 
-    final board = await createBoard(boardId);
+    final board = await createBoard();
     final boardList = await createBoardList(board);
     final boardTask = await createBoardTask(boardList, boardTaskId);
 
@@ -60,7 +58,7 @@ void main() async {
     assert(created?.dueDate == boardTaskAlarmDueDate);
 
     List<BoardTaskAlarm> boardTaskAlarms =
-        await useCaseBoardTaskAlarm.fetchBoardTaskAlarms(boardId, boardTaskId);
+        await useCaseBoardTaskAlarm.fetchBoardTaskAlarms(board.id, boardTaskId);
     assert(boardTaskAlarms.length == 1);
     assert(boardTaskAlarms[0].id == boardTaskAlarmId);
   });
@@ -69,7 +67,7 @@ void main() async {
     await createBoardTaskAlarm();
 
     final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(
-        boardId, boardTaskId, boardTaskAlarmId);
+        board.id, boardTaskId, boardTaskAlarmId);
     assert(boardTaskAlarm != null);
     assert(boardTaskAlarm?.id == boardTaskAlarmId);
   });
@@ -78,7 +76,7 @@ void main() async {
     await createBoardTaskAlarm();
 
     final boardTaskAlarm = await useCaseBoardTaskAlarm.fetchBoardTaskAlarm(
-        boardId, boardTaskId, boardTaskAlarmId);
+        board.id, boardTaskId, boardTaskAlarmId);
     assert(boardTaskAlarm != null);
 
     final newBoardTaskAlarmDueDate = DateTime.now();
@@ -94,7 +92,7 @@ void main() async {
     await createBoardTaskAlarm();
 
     final BoardTaskAlarm? boardTaskAlarm = await useCaseBoardTaskAlarm
-        .fetchBoardTaskAlarm(boardId, boardTaskId, boardTaskAlarmId);
+        .fetchBoardTaskAlarm(board.id, boardTaskId, boardTaskAlarmId);
     assert(boardTaskAlarm != null);
 
     bool deleted =

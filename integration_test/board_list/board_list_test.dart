@@ -13,9 +13,8 @@ void main() async {
   IUseCaseBoardList useCaseBoardList = locator.get<IUseCaseBoardList>();
 
   final uid = generateUid();
-  final boardId = generateUid();
   const boardListName = "Created BoardList";
-  final board = await createBoard(boardId);
+  final board = await createBoard();
 
   Future<BoardList?> createBoardList() async {
     BoardList newBoardList = BoardList(uid, board.id)..name = boardListName;
@@ -27,7 +26,7 @@ void main() async {
 
     assert(created != null);
     assert(created?.id == uid);
-    assert(created?.boardId == boardId);
+    assert(created?.boardId == board.id);
     assert(created?.name == boardListName);
   });
 
@@ -42,7 +41,7 @@ void main() async {
   test("fetchBoardList", () async {
     await createBoardList();
 
-    final boardList = await useCaseBoardList.fetchBoardList(boardId, uid);
+    final boardList = await useCaseBoardList.fetchBoardList(board.id, uid);
     assert(boardList != null);
     assert(boardList?.id == uid);
   });
@@ -50,7 +49,7 @@ void main() async {
   test("updateBoardList", () async {
     await createBoardList();
 
-    final boardList = await useCaseBoardList.fetchBoardList(boardId, uid);
+    final boardList = await useCaseBoardList.fetchBoardList(board.id, uid);
     assert(boardList != null);
 
     const newBoardListName = "New BoardList Name";
@@ -64,7 +63,7 @@ void main() async {
   test("deleteBoardList", () async {
     await createBoardList();
 
-    final boardList = await useCaseBoardList.fetchBoardList(boardId, uid);
+    final boardList = await useCaseBoardList.fetchBoardList(board.id, uid);
     assert(boardList != null);
 
     bool deleted = await useCaseBoardList.deleteBoardList(boardList!);

@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
 
 void showSafeSnackBar(BuildContext context,
     {required String content, Duration? duration}) {
@@ -98,6 +100,45 @@ void showSafeChooseActionDialog(BuildContext context,
           return AlertDialog(
             title: Text(title),
             content: content != null ? Text(content) : null,
+            actions: [
+              action1Button,
+              action2Button,
+            ],
+          );
+        });
+  }
+}
+
+void showSafeChooseActionTextInputDialog(BuildContext context,
+    {required String title,
+    required String actionButton1,
+    required Function action1,
+    required List<CustomTextInputDetail> details}) {
+  Widget action1Button = TextButton(
+    child: Text(
+      actionButton1,
+      style: const TextStyle(color: Colors.green),
+    ),
+    onPressed: () {
+      Navigator.pop(context);
+      action1();
+    },
+  );
+
+  Widget action2Button = TextButton(
+    child: const Text("cancel").tr(),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  if (context.mounted) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(title),
+            content: CustomTextInputWidget(details),
             actions: [
               action1Button,
               action2Button,

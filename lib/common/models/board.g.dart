@@ -9,9 +9,9 @@ part of 'board.dart';
 Board _$BoardFromJson(Map<String, dynamic> json) => Board(
       json['id'] as String,
       json['userId'] as String,
-    )
-      ..name = json['name'] as String?
-      ..description = json['description'] as String?;
+      json['name'] as String,
+      json['description'] as String?,
+    );
 
 Map<String, dynamic> _$BoardToJson(Board instance) => <String, dynamic>{
       'id': instance.id,

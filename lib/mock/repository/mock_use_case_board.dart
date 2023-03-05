@@ -4,7 +4,7 @@ import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
 
 class MockUseCaseBoard extends UseCaseBase implements IUseCaseBoard {
   @override
-  Future<Board> createBoard(Board board) {
+  Future<Board> createBoard(String boardName, String? boardDescription) {
     // TODO: implement createBoard
     throw UnimplementedError();
   }

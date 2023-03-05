@@ -1,5 +1,11 @@
 {
   "app_title": "ToDo Master",
   "no_boards_created_indicator": "Your have no Boards yet\nCreate your first Board",
-  "log_out": "Log-out"
+  "log_out": "Log-out",
+  "create_new_board": "Create a new Board",
+  "cancel": "Cancel",
+  "complete": "Complete",
+  "board_name": "Board Name",
+  "board_description": "Board Description",
+  "new_board": "New Board"
 }

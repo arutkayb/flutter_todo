@@ -41,22 +41,15 @@ Future<BoardList> createBoardList(Board board, [String? id]) async {
   return newBoardList;
 }
 
-Future<Board> createBoard([String? id]) async {
-  final user = getCurrentUser();
-
-  final uid = id ?? generateUid();
+Future<Board> createBoard() async {
   const boardName = "Created Board";
   const boardDescription = "Created Board Description";
 
-  Board newBoard = Board(uid, user.id)
-    ..name = boardName
-    ..description = boardDescription;
-  final created = await useCaseBoard.createBoard(newBoard);
+  final created = await useCaseBoard.createBoard(boardName, boardDescription);
 
   assert(created != null);
-  assert(created?.id == uid);
 
-  return newBoard;
+  return created!;
 }
 
 Future<bool> deleteBoard(Board board) async {

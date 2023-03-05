@@ -1,60 +1,50 @@
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
 import 'package:flutter_starter/injection.dart';
-import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helper/setup_helper.dart';
-import '../helper/user_helper.dart';
 
 void main() async {
   await setupTestDependencies();
 
   IUseCaseBoard useCaseBoard = locator.get<IUseCaseBoard>();
 
-  final uid = generateUid();
   const boardName = "Created Board";
   const boardDescription = "Created Board Description";
 
   Future<Board?> createBoard() async {
-    final user = getCurrentUser();
-
-    Board newBoard = Board(uid, user.id)
-      ..name = boardName
-      ..description = boardDescription;
-
-    return await useCaseBoard.createBoard(newBoard);
+    return await useCaseBoard.createBoard(boardName, boardDescription);
   }
 
   test("createBoard", () async {
     final created = await createBoard();
 
     assert(created != null);
-    assert(created?.id == uid);
     assert(created?.name == boardName);
     assert(created?.description == boardDescription);
   });
 
   test("fetchBoard", () async {
-    await createBoard();
+    final created = await createBoard();
 
-    final board = await useCaseBoard.fetchBoard(uid);
+    final board = await useCaseBoard.fetchBoard(created!.id);
     assert(board != null);
-    assert(board?.id == uid);
+    assert(board?.id == created.id);
   });
 
   test("fetchBoards", () async {
-    await createBoard();
+    final created = await createBoard();
 
     List<Board> boards = await useCaseBoard.fetchBoards();
     assert(boards.length == 1);
-    assert(boards[0].id == uid);
+    assert(boards[0].id == created!.id);
   });
 
   test("updateBoard", () async {
-    await createBoard();
+    final created = await createBoard();
 
-    final board = await useCaseBoard.fetchBoard(uid);
+    final board = await useCaseBoard.fetchBoard(created!.id);
     assert(board != null);
 
     const newBoardName = "New Board Name";
@@ -69,9 +59,9 @@ void main() async {
   });
 
   test("deleteBoard", () async {
-    await createBoard();
+    final created = await createBoard();
 
-    final board = await useCaseBoard.fetchBoard(uid);
+    final board = await useCaseBoard.fetchBoard(created!.id);
     assert(board != null);
 
     bool deleted = await useCaseBoard.deleteBoard(board!.id);

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
+import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_bloc.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_event.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_state.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_starter/home/controllers/login_controller/home_screen_lo
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_event.dart';
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_state.dart';
 import 'package:flutter_starter/home/widgets/board_card.dart';
+import 'package:flutter_starter/utils/dialog_utils.dart';
+import 'package:flutter_starter/utils/navigation_utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,12 +26,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late HomeScreenLoginBloc _loginController;
   late HomeScreenBoardBloc _boardController;
+  String? newBoardName;
+  String? newBoardDescription;
 
   @override
   void initState() {
     super.initState();
     _loginController = context.read<HomeScreenLoginBloc>();
     _boardController = context.read<HomeScreenBoardBloc>();
+    _boardController.add(FetchBoardsTriggered());
   }
 
   @override
@@ -89,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ));
     } else {
       for (var board in boards) {
-        widgets.add(BoardCard(board, _onBoardCardTap));
+        widgets.add(BoardCard(board, () {
+          _onBoardCardTap(board);
+        }));
       }
     }
 
@@ -98,17 +106,44 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _onBoardCardTap() {
-    // TODO: navigate on tap
+  void _onBoardCardTap(Board board) async {
+    await NavigationUtils.navigateToBoard(context, board);
+    _boardController.add(BoardUpdated());
   }
 
   Widget _getFab() {
     return FloatingActionButton(
       heroTag: "createBoard",
       onPressed: () {
-        // TODO: Navigate to board
+        _createNewBoard();
       },
       child: const Icon(Icons.add),
+    );
+  }
+
+  void _createNewBoard() {
+    List<CustomTextInputDetail> details = List.empty(growable: true);
+    details.add(CustomTextInputDetail(
+        label: "board_name".tr(),
+        onFieldChanged: (value) {
+          newBoardName = value;
+        }));
+
+    details.add(CustomTextInputDetail(
+        label: "board_description".tr(),
+        onFieldChanged: (value) {
+          newBoardDescription = value;
+        }));
+
+    showSafeChooseActionTextInputDialog(
+      context,
+      title: "create_new_board".tr(),
+      actionButton1: "complete".tr(),
+      action1: () {
+        _boardController.add(BoardCreated(
+            newBoardName ?? "new_board".tr(), newBoardDescription));
+      },
+      details: details,
     );
   }
 

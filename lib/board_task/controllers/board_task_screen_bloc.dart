@@ -11,7 +11,7 @@ class BoardTaskScreenBloc extends Bloc<dynamic, BoardTaskScreenState> {
 
   BoardTaskScreenBloc(super.initialState) {
     on<SaveBoardTask>((event, emit) async {
-      emit(BoardTaskScreenState.fetching(state, true));
+      emit(BoardTaskScreenState.saving(state, true));
 
       String boardListId = event.boardListId ?? state.boardTask.boardListId;
       String? title = event.title;
@@ -42,6 +42,9 @@ class BoardTaskScreenBloc extends Bloc<dynamic, BoardTaskScreenState> {
   }
 
   Future<BoardTask?> _saveBoardTask(BoardTask boardTask) {
+    if (boardTask.id == null) {
+      return _useCaseBoardTask.createBoardTask(boardTask);
+    }
     return _useCaseBoardTask.updateBoardTask(boardTask);
   }
 }

@@ -11,6 +11,7 @@ class SaveBoardTask extends BoardTaskScreenEvent {
   DateTime? dateEnd;
 
   SaveBoardTask({
+    required this.boardListId,
     required this.title,
     this.description,
     this.label,

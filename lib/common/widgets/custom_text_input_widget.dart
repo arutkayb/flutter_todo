@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 class CustomTextInputDetail {
   final String? hint;
   final String? label;
+  final int? minLines;
+  final int? maxLines;
+  final String? content;
   final Function(String) onFieldChanged;
 
   const CustomTextInputDetail({
     this.hint,
     this.label,
+    this.minLines,
+    this.maxLines,
+    this.content,
     required this.onFieldChanged,
   });
 }
@@ -32,8 +38,14 @@ class _CustomTextInputWidgetState extends State<CustomTextInputWidget> {
       TextEditingController controller = TextEditingController();
       _controllers.add(controller);
 
+      if (detail.content != null) {
+        controller.text = detail.content!;
+      }
+
       textFields.add(
         TextField(
+          minLines: detail.minLines,
+          maxLines: detail.maxLines,
           onChanged: (value) {
             detail.onFieldChanged(value);
           },

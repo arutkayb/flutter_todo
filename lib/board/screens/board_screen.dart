@@ -112,15 +112,32 @@ class _BoardScreenState extends State<BoardScreen> {
             onAddListItem: () async {
               final boardId = _boardController.state.fullBoard.board.id;
 
-              await NavigationUtils.navigateToBoardTask(
+              final BoardTask? boardTask =
+                  await NavigationUtils.navigateToBoardTask(
                 context,
-                BoardTask.withoutId(boardId, boardList.id),
+                BoardTask.withUid(boardId, boardList.id),
                 boardLists,
               );
+
+              if (boardTask != null) {
+                _boardController.add(FetchFullBoard());
+              }
             },
             onRenameList: (name) {
               _boardController
                   .add(UpdateBoardList(boardList.clone()..name = name));
+            },
+            onBoardTaskTap: (task) async {
+              final BoardTask? boardTask =
+                  await NavigationUtils.navigateToBoardTask(
+                context,
+                task,
+                boardLists,
+              );
+
+              if (boardTask != null) {
+                _boardController.add(FetchFullBoard());
+              }
             },
           ),
         );

@@ -17,5 +17,20 @@
   "task_description": "Task description",
   "delete_list": "Delete List",
   "rename_list": "Rename List",
-  "cannot_delete_list": "Cannot delete a List with Tasks"
+  "cannot_delete_list": "Cannot delete a List with Tasks",
+  "save_task": "Save task",
+  "belonged_list": "Belonged List",
+  "task_label": "Task Label",
+  "start_task": "Start Task",
+  "start_time": "Start Time",
+  "finish_task": "Finish Task",
+  "end_time": "End Time",
+  "task_duration": "Task Duration",
+  "days": "Day(s)",
+  "hours": "Hour(s)",
+  "minutes": "Minute(s)",
+  "seconds": "Second(s)",
+  "save_task_error": "Task Save Error",
+  "task_title_cannot_be_empty": "Task title cannot be empty",
+  "task_saved": "Task saved"
 }

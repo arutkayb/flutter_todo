@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter/board/widgets/board_task_card.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
 import 'package:flutter_starter/common/models/board_task.dart';
 import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
@@ -11,11 +12,13 @@ class BoardListView extends StatefulWidget {
   final Function onDeleteList;
   final Function(String) onRenameList;
   final Function onAddListItem;
+  final Function(BoardTask) onBoardTaskTap;
 
   const BoardListView(this.boardList, this.boardTasks,
       {required this.onDeleteList,
       required this.onAddListItem,
       required this.onRenameList,
+      required this.onBoardTaskTap,
       Key? key})
       : super(key: key);
 
@@ -102,12 +105,30 @@ class _BoardListViewState extends State<BoardListView> {
       ),
     );
 
+    if (widget.boardTasks != null && widget.boardTasks!.isNotEmpty) {
+      widget.boardTasks!.sort((a, b) {
+        if (a.dateCreated != null && b.dateCreated != null) {
+          return a.dateCreated!.compareTo(b.dateCreated!) > 0 ? 1 : 0;
+        } else {
+          return 0;
+        }
+      });
+    }
+
     return Padding(
       padding: const EdgeInsets.all(10),
       child: ListView(
         children: [
           header,
-          // TODO: Add list tasks
+          (widget.boardTasks == null || widget.boardTasks!.isEmpty)
+              ? Container()
+              : Column(
+                  children: widget.boardTasks!
+                      .map((boardTask) => BoardTaskCard(boardTask, () {
+                            widget.onBoardTaskTap(boardTask);
+                          }))
+                      .toList(),
+                ),
           addListItem,
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter_starter/common/models/task_label.dart';
+import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'board_task.g.dart';
@@ -22,7 +23,7 @@ class BoardTask {
 
   DateTime? dateCreated;
 
-  BoardTask.withoutId(this.boardId, this.boardListId);
+  BoardTask.withUid(this.boardId, this.boardListId) : id = generateUid();
 
   BoardTask(this.id, this.boardId, this.boardListId);
 

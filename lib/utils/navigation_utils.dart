@@ -26,9 +26,9 @@ class NavigationUtils {
     );
   }
 
-  static Future<void> navigateToBoardTask(BuildContext context,
+  static Future<BoardTask?> navigateToBoardTask(BuildContext context,
       BoardTask boardTask, List<BoardList> boardLists) async {
-    await Navigator.push(
+    return await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider(

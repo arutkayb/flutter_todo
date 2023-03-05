@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/models/board_task.dart';
 
@@ -9,14 +10,14 @@ class BoardTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = boardTask.title ?? "New Board Task";
-    final description = boardTask.description ?? "New board task";
+    final title = boardTask.title ?? "new_board_task".tr();
+    final description = boardTask.description;
 
     return Card(
       child: ListTile(
         leading: const Icon(Icons.task_outlined),
         title: Text(title),
-        subtitle: Text(description),
+        subtitle: description == null ? null : Text(description),
         onTap: onTap,
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'board.g.dart';
@@ -15,6 +16,7 @@ class Board {
   DateTime? dateCreated;
 
   Board(this.id, this.userId, this.name, [this.description]);
+  Board.withUid(this.userId, this.name, [this.description]): id=generateUid();
 
   factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);
 

@@ -9,5 +9,8 @@
   "board_description": "Board Description",
   "new_board": "New Board",
   "delete_board_title": "Delete Board",
-  "delete_board_content": "Are you sure you want to delete the board?"
+  "delete_board_content": "Are you sure you want to delete the board?",
+  "new_list": "New List",
+  "add_new_list": "Add List",
+  "board_list_name": "List Name"
 }

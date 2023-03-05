@@ -29,13 +29,12 @@ class RemoteDataPathUtil {
     return "${getBoardListsPath(boardId)}$boardListId";
   }
 
-  String getBoardTasksPath(String boardId, String boardListId) {
-    return "${getBoardListPath(boardId, boardListId)}/$boardTasksDirectory/";
+  String getBoardTasksPath(String boardId) {
+    return "${getBoardPath(boardId)}/$boardTasksDirectory/";
   }
 
-  String getBoardTaskPath(
-      String boardId, String boardListId, String boardTaskId) {
-    return "${getBoardTasksPath(boardId, boardListId)}$boardTaskId";
+  String getBoardTaskPath(String boardId, String boardTaskId) {
+    return "${getBoardTasksPath(boardId)}$boardTaskId";
   }
 
   String getBoardTaskAlarmsPath(String boardId, String boardTaskId) {

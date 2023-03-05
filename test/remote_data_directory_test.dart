@@ -1,4 +1,3 @@
-import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/util/remote_data_path_util.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -46,23 +45,21 @@ void main() {
 
   test('getBoardTasksPath', () {
     final boardId = generateUid();
-    final boardListId = generateUid();
 
-    final expectedPath =
-        "$randomDataRootDirectory/boards/$boardId/boardLists/$boardListId/boardTasks/";
-    final boardPath = remoteDataPathUtil.getBoardTasksPath(boardId, boardListId);
+    final expectedPath = "$randomDataRootDirectory/boards/$boardId/boardTasks/";
+    final boardPath =
+        remoteDataPathUtil.getBoardTasksPath(boardId);
 
     assert(boardPath == expectedPath);
   });
 
   test('getBoardTaskPath', () {
     final boardId = generateUid();
-    final boardListId = generateUid();
     final boardTaskId = generateUid();
 
     final expectedPath =
-        "$randomDataRootDirectory/boards/$boardId/boardLists/$boardListId/boardTasks/$boardTaskId";
-    final boardPath = remoteDataPathUtil.getBoardTaskPath(boardId, boardListId, boardTaskId);
+        "$randomDataRootDirectory/boards/$boardId/boardTasks/$boardTaskId";
+    final boardPath = remoteDataPathUtil.getBoardTaskPath(boardId, boardTaskId);
 
     assert(boardPath == expectedPath);
   });
@@ -71,8 +68,10 @@ void main() {
     final boardId = generateUid();
     final boardTaskId = generateUid();
 
-    final expectedPath = "$randomDataRootDirectory/boardTaskAlarms/$boardId/$boardTaskId/";
-    final boardPath = remoteDataPathUtil.getBoardTaskAlarmsPath(boardId, boardTaskId);
+    final expectedPath =
+        "$randomDataRootDirectory/boardTaskAlarms/$boardId/$boardTaskId/";
+    final boardPath =
+        remoteDataPathUtil.getBoardTaskAlarmsPath(boardId, boardTaskId);
 
     assert(boardPath == expectedPath);
   });
@@ -84,7 +83,8 @@ void main() {
 
     final expectedPath =
         "$randomDataRootDirectory/boardTaskAlarms/$boardId/$boardTaskId/$boardAlarmId";
-    final boardPath = remoteDataPathUtil.getBoardTaskAlarmPath(boardId, boardTaskId, boardAlarmId);
+    final boardPath = remoteDataPathUtil.getBoardTaskAlarmPath(
+        boardId, boardTaskId, boardAlarmId);
 
     assert(boardPath == expectedPath);
   });
@@ -95,7 +95,8 @@ void main() {
 
     final expectedPath =
         "$randomDataRootDirectory/boardTaskComments/$boardId/$boardTaskId/";
-    final boardPath = remoteDataPathUtil.getBoardTaskCommentsPath(boardId, boardTaskId);
+    final boardPath =
+        remoteDataPathUtil.getBoardTaskCommentsPath(boardId, boardTaskId);
 
     assert(boardPath == expectedPath);
   });
@@ -107,8 +108,8 @@ void main() {
 
     final expectedPath =
         "$randomDataRootDirectory/boardTaskComments/$boardId/$boardTaskId/$boardTaskCommentId";
-    final boardPath =
-        remoteDataPathUtil.getBoardTaskCommentPath(boardId, boardTaskId, boardTaskCommentId);
+    final boardPath = remoteDataPathUtil.getBoardTaskCommentPath(
+        boardId, boardTaskId, boardTaskCommentId);
 
     assert(boardPath == expectedPath);
   });

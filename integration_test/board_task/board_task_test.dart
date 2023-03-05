@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../helper/board_helper.dart';
 import '../helper/setup_helper.dart';
-import '../helper/user_helper.dart';
 
 void main() async {
   await setupTestDependencies();
@@ -41,7 +40,7 @@ void main() async {
     await createBoardTask();
 
     List<BoardTask> boardTasks =
-        await useCaseBoardTask.fetchBoardTasks(board.id, boardListId);
+        await useCaseBoardTask.fetchBoardTasks(board.id);
     assert(boardTasks.length == 1);
     assert(boardTasks[0].id == boardTaskId);
   });
@@ -49,8 +48,8 @@ void main() async {
   test("fetchBoardTask", () async {
     await createBoardTask();
 
-    final boardTask = await useCaseBoardTask.fetchBoardTask(
-        board.id, boardListId, boardTaskId);
+    final boardTask =
+        await useCaseBoardTask.fetchBoardTask(board.id, boardTaskId);
     assert(boardTask != null);
     assert(boardTask?.id == boardTaskId);
     assert(boardTask?.boardId == board.id);
@@ -60,8 +59,8 @@ void main() async {
   test("updateBoardTask", () async {
     await createBoardTask();
 
-    final boardTask = await useCaseBoardTask.fetchBoardTask(
-        board.id, boardListId, boardTaskId);
+    final boardTask =
+        await useCaseBoardTask.fetchBoardTask(board.id, boardTaskId);
     assert(boardTask != null);
 
     const newBoardTaskTitle = "New BoardTask Name";
@@ -75,8 +74,8 @@ void main() async {
   test("deleteBoardTask", () async {
     await createBoardTask();
 
-    final BoardTask? boardTask = await useCaseBoardTask.fetchBoardTask(
-        board.id, boardListId, boardTaskId);
+    final BoardTask? boardTask =
+        await useCaseBoardTask.fetchBoardTask(board.id, boardTaskId);
     assert(boardTask != null);
 
     bool deleted = await useCaseBoardTask.deleteBoardTask(boardTask!);

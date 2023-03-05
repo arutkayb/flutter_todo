@@ -15,18 +15,17 @@ class UseCaseBoardTask extends UseCaseBase implements IUseCaseBoardTask {
   }
 
   @override
-  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId, String id) {
-    return remoteDataManager.fetchBoardTask(boardId, boardListId, id);
+  Future<BoardTask?> fetchBoardTask(String boardId, String id) {
+    return remoteDataManager.fetchBoardTask(boardId, id);
   }
 
   @override
-  Future<List<BoardTask>> fetchBoardTasks(String boardId, String boardListId) {
-    return remoteDataManager.fetchBoardTasks(boardId, boardListId);
+  Future<List<BoardTask>> fetchBoardTasks(String boardId) {
+    return remoteDataManager.fetchBoardTasks(boardId);
   }
 
   @override
   Future<BoardTask?> updateBoardTask(BoardTask boardTask) {
     return remoteDataManager.updateBoardTask(boardTask);
   }
-
 }

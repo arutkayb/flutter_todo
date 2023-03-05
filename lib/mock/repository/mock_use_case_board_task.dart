@@ -17,13 +17,13 @@ class MockUseCaseBoardTask extends UseCaseBase implements IUseCaseBoardTask {
   }
 
   @override
-  Future<BoardTask?> fetchBoardTask(String boardId, String boardListId, String id) {
+  Future<BoardTask?> fetchBoardTask(String boardId, String id) {
     // TODO: implement fetchBoardTask
     throw UnimplementedError();
   }
 
   @override
-  Future<List<BoardTask>> fetchBoardTasks(String boardId, String boardListId) {
+  Future<List<BoardTask>> fetchBoardTasks(String boardId) {
     // TODO: implement fetchBoardTasks
     throw UnimplementedError();
   }

@@ -1,4 +1,5 @@
 import 'package:flutter_starter/common/models/board.dart';
+import 'package:flutter_starter/common/models/full_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/use_case_base.dart';
 
@@ -30,6 +31,12 @@ class MockUseCaseBoard extends UseCaseBase implements IUseCaseBoard {
   @override
   Future<Board> updateBoard(Board board) {
     // TODO: implement updateBoard
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<FullBoard?> fetchFullBoard(String id) {
+    // TODO: implement fetchFullBoard
     throw UnimplementedError();
   }
 }

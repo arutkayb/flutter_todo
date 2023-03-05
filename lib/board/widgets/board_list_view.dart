@@ -53,7 +53,11 @@ class BoardListView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: ListView(
-        children: [header, addListItem],
+        children: [
+          header,
+          // TODO: Add list tasks
+          addListItem,
+        ],
       ),
     );
   }

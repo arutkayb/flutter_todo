@@ -1,18 +1,11 @@
-import 'package:flutter_starter/common/models/board.dart';
-import 'package:flutter_starter/common/models/board_list.dart';
+import 'package:flutter_starter/common/models/full_board.dart';
 
 class BoardScreenState {
   bool fetching;
-  Board board;
-  List<BoardList>? boardLists;
+  FullBoard fullBoard;
 
-  BoardScreenState(this.board) : fetching = false;
+  BoardScreenState(this.fullBoard) : fetching = false;
 
   BoardScreenState.fetching(BoardScreenState state, this.fetching)
-      : board = state.board,
-        boardLists = state.boardLists;
-
-  BoardScreenState.withBoardLists(BoardScreenState state, this.boardLists)
-      : board = state.board,
-        fetching = false;
+      : fullBoard = state.fullBoard;
 }

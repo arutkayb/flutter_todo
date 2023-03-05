@@ -10,7 +10,7 @@
    was completed.
 4. A way to export data to CSV file
 
-## How to run
+## Setup
 
 You need to configure a Firebase Project to run the project (https://firebase.google.com/docs/flutter/setup)
 
@@ -25,6 +25,10 @@ You need to configure a Firebase Project to run the project (https://firebase.go
 7. From your Flutter project directory, run the following command to start the app configuration workflow:
 `flutterfire configure`
 8. Choose the project that you created for this app
+
+## Run
+1. Run `flutter test integration_test` to see if you did the setup properly
+2. Enjoy the app
 
 ## Internal
 ### Architecture

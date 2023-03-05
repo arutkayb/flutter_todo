@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_starter/board/controllers/board_screen_bloc.dart';
 import 'package:flutter_starter/board/controllers/board_screen_event.dart';
 import 'package:flutter_starter/board/controllers/board_screen_state.dart';
 import 'package:flutter_starter/board/widgets/board_list_view.dart';
-import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
 import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
@@ -24,7 +21,7 @@ class BoardScreen extends StatefulWidget {
 class _BoardScreenState extends State<BoardScreen> {
   late BoardScreenBloc _boardController;
   String? _createdBoardListName;
-  final _controller = PageController(
+  final _pageViewController = PageController(
     initialPage: 0,
   );
   int _selectedPage = 0;
@@ -33,27 +30,29 @@ class _BoardScreenState extends State<BoardScreen> {
   void initState() {
     super.initState();
     _boardController = context.read<BoardScreenBloc>();
-    _boardController.add(FetchBoardLists());
+    _boardController.add(FetchFullBoard());
   }
 
   @override
   Widget build(BuildContext context) {
+    final boardName = _boardController.state.fullBoard.board.name;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_boardController.state.board.name),
+        title: Text(boardName),
       ),
       body: SafeArea(
         child: BlocBuilder<BoardScreenBloc, BoardScreenState>(
           builder: (context, state) {
-            final pageCount =
-                (state.boardLists != null && state.boardLists!.isNotEmpty)
-                    ? (state.boardLists!.length + 1)
-                    : 1;
+            final boardLists = state.fullBoard.boardLists;
+            final pageCount = (boardLists != null && boardLists.isNotEmpty)
+                ? (boardLists.length + 1)
+                : 1;
             return CustomCircularProgressIndicator(
               show: state.fetching,
               child: Column(
                 children: [
-                  Expanded(child: _getBoardLists(state.boardLists)),
+                  Expanded(child: _getBoardLists(boardLists)),
                   PageViewDotIndicator(
                     currentItem: _selectedPage,
                     count: pageCount,
@@ -74,9 +73,9 @@ class _BoardScreenState extends State<BoardScreen> {
     if (boardLists != null && boardLists.isNotEmpty) {
       for (var boardList in boardLists) {
         listWidgets.add(BoardListView(boardList, onDeleteList: () {
-          //TODO
+          //TODO delete
         }, onAddListItem: () {
-          //TODO
+          //TODO add
         }));
       }
     }
@@ -115,7 +114,7 @@ class _BoardScreenState extends State<BoardScreen> {
     );
 
     return PageView(
-      controller: _controller,
+      controller: _pageViewController,
       children: listWidgets,
       onPageChanged: (page) {
         setState(() {
@@ -127,7 +126,7 @@ class _BoardScreenState extends State<BoardScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _pageViewController.dispose();
     super.dispose();
   }
 }

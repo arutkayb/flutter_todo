@@ -1,6 +1,6 @@
 abstract class BoardScreenEvent {}
 
-class FetchBoardLists extends BoardScreenEvent {}
+class FetchFullBoard extends BoardScreenEvent {}
 
 class CreateBoardList extends BoardScreenEvent {
   String boardListName;

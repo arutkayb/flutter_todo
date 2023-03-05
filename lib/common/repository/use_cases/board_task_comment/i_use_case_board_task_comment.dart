@@ -3,7 +3,7 @@ import 'package:flutter_starter/common/models/board_task_comment.dart';
 
 abstract class IUseCaseBoardTaskComment {
   Future<BoardTaskComment?> createBoardTaskComment(
-      BoardTaskComment boardTaskComment);
+      String boardId, String boardTaskId, String content);
 
   Future<List<BoardTaskComment>> fetchBoardTaskComments(
       String boardId, String boardTaskId);

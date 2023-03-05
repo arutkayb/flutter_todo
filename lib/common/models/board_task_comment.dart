@@ -1,3 +1,4 @@
+import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'board_task_comment.g.dart';
@@ -25,6 +26,12 @@ class BoardTaskComment {
     this.boardId,
     this.boardTaskId,
   );
+
+  BoardTaskComment.withUid(
+    this.userId,
+    this.boardId,
+    this.boardTaskId,
+  ) : id = generateUid();
 
   factory BoardTaskComment.fromJson(Map<String, dynamic> json) =>
       _$BoardTaskCommentFromJson(json);

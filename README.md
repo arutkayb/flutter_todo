@@ -32,7 +32,7 @@ You need to configure a Firebase Project to run the project (https://firebase.go
 
 ## Internal
 ### Architecture
-![ER Diagram](https://github.com/arutkayb/flutter_todo/blob/main/assets/images/achitecture.png?raw=true)
+![ER Diagram](https://github.com/arutkayb/flutter_todo/blob/main/assets/images/architecture.png?raw=true)
 
 
 ## Internal Notes

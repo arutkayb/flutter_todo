@@ -6,8 +6,11 @@ class UseCaseBoardTaskComment extends UseCaseBase
     implements IUseCaseBoardTaskComment {
   @override
   Future<BoardTaskComment?> createBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
-    return remoteDataManager.createBoardTaskComment(boardTaskComment);
+      String boardId, String boardTaskId, String content) {
+    return remoteDataManager.createBoardTaskComment(BoardTaskComment.withUid(
+        remoteDataManager.getCurrentUser()!.id, boardId, boardTaskId)
+      ..content = content
+      ..dateCreated = DateTime.now());
   }
 
   @override

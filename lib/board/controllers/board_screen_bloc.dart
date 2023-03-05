@@ -8,7 +8,7 @@ import 'package:flutter_starter/common/repository/use_cases/board_list/i_use_cas
 import 'package:flutter_starter/injection.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 
-class BoardScreenBloc extends Bloc<dynamic, BoardScreenState> {
+class BoardScreenBloc extends Bloc<BoardScreenEvent, BoardScreenState> {
   final IUseCaseBoard _useCaseBoard = locator.get<IUseCaseBoard>();
   final IUseCaseBoardList _useCaseBoardList = locator.get<IUseCaseBoardList>();
 

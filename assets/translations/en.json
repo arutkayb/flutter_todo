@@ -32,5 +32,7 @@
   "seconds": "Second(s)",
   "save_task_error": "Task Save Error",
   "task_title_cannot_be_empty": "Task title cannot be empty",
-  "task_saved": "Task saved"
+  "task_saved": "Task saved",
+  "add_new_comment": "Add new comment",
+  "new_comment": "New comment"
 }

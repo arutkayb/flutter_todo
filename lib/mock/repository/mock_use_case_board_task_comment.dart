@@ -6,7 +6,7 @@ class MockUseCaseBoardTaskComment extends UseCaseBase
     implements IUseCaseBoardTaskComment {
   @override
   Future<BoardTaskComment?> createBoardTaskComment(
-      BoardTaskComment boardTaskComment) {
+      String boardId, String boardTaskId, String content) {
     // TODO: implement createBoardTaskComment
     throw UnimplementedError();
   }

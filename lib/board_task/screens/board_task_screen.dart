@@ -7,10 +7,15 @@ import 'package:flutter_starter/board/controllers/board_screen_bloc.dart';
 import 'package:flutter_starter/board/controllers/board_screen_event.dart';
 import 'package:flutter_starter/board/controllers/board_screen_state.dart';
 import 'package:flutter_starter/board/widgets/board_list_view.dart';
-import 'package:flutter_starter/board_task/controllers/board_task_screen_bloc.dart';
-import 'package:flutter_starter/board_task/controllers/board_task_screen_event.dart';
-import 'package:flutter_starter/board_task/controllers/board_task_screen_state.dart';
+import 'package:flutter_starter/board_task/controllers/board_task_controller/board_task_screen_bloc.dart';
+import 'package:flutter_starter/board_task/controllers/board_task_controller/board_task_screen_event.dart';
+import 'package:flutter_starter/board_task/controllers/board_task_controller/board_task_screen_state.dart';
+import 'package:flutter_starter/board_task/controllers/task_comment_controller/task_comment_bloc.dart';
+import 'package:flutter_starter/board_task/controllers/task_comment_controller/task_comment_event.dart';
+import 'package:flutter_starter/board_task/controllers/task_comment_controller/task_comment_state.dart';
+import 'package:flutter_starter/board_task/widgets/comment_card.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
+import 'package:flutter_starter/common/models/board_task_comment.dart';
 import 'package:flutter_starter/common/models/task_label.dart';
 import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
@@ -27,6 +32,8 @@ class BoardTaskScreen extends StatefulWidget {
 
 class _BoardTaskScreenState extends State<BoardTaskScreen> {
   late BoardTaskScreenBloc _boardTaskController;
+  late TaskCommentBloc _taskCommentController;
+
   String? _taskTitle;
   String? _taskDescription;
   late String _taskListName;
@@ -35,10 +42,18 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
   DateTime? _endTime;
   DateTime? _alarmTime;
 
+  String? _newCommentContent;
+
   @override
   void initState() {
     super.initState();
     _boardTaskController = context.read<BoardTaskScreenBloc>();
+    _taskCommentController = context.read<TaskCommentBloc>();
+
+    final boardId = _boardTaskController.state.boardTask.boardId;
+    final boardTaskId = _boardTaskController.state.boardTask.id;
+    _taskCommentController.add(FetchTaskComments(boardId, boardTaskId!));
+
     final boardListId = _boardTaskController.state.boardTask.boardListId;
     _taskListName = _boardTaskController.state.boardLists
         .firstWhere((boardList) => boardList.id == boardListId)
@@ -141,6 +156,18 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: _getSetTaskAlarm(),
                       ),
+                      Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white24,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: BlocBuilder<TaskCommentBloc, TaskCommentState>(
+                              builder: (context, state) {
+                            return CustomCircularProgressIndicator(
+                                show: state.fetching,
+                                child: _getTaskComments(state.comments));
+                          })),
                     ],
                   ),
                 ),
@@ -291,7 +318,70 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
   }
 
   Widget _getSetTaskAlarm() {
-    return Container();
+    return Container(); // TODO:
+  }
+
+  Widget _getTaskComments(List<BoardTaskComment>? comments) {
+    final addNewComment = Center(
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          color: Colors.black12,
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        ),
+        child: GestureDetector(
+          onTap: () {
+            _newCommentContent = null;
+
+            showSafeChooseActionTextInputDialog(
+              context,
+              title: "add_new_comment".tr(),
+              actionButton1: "complete".tr(),
+              action1: () {
+                final content = _newCommentContent?.trim();
+                if (content == null || content.isEmpty) {
+                  return;
+                }
+
+                final boardId = _boardTaskController.state.boardTask.boardId;
+                final boardTaskId = _boardTaskController.state.boardTask.id;
+                _taskCommentController
+                    .add(CreateNewComment(boardId, boardTaskId!, content));
+              },
+              details: [
+                CustomTextInputDetail(
+                    label: "new_comment".tr(),
+                    onFieldChanged: (value) {
+                      _newCommentContent = value;
+                    }),
+              ],
+            );
+          },
+          child: Text(
+            "new_comment".tr(),
+          ),
+        ),
+      ),
+    );
+
+    List<Widget>? cards = List.empty(growable: true);
+    cards.add(addNewComment);
+
+    if (comments != null && comments.isNotEmpty) {
+      comments
+          .sort((a, b) => a.dateCreated!.compareTo(b.dateCreated!) < 0 ? 1 : 0);
+
+      final commentCards = comments.map((comment) => CommentCard(comment, () {
+            _taskCommentController.add(DeleteTaskComment(comment));
+          }));
+
+      cards.addAll(commentCards);
+    }
+
+    return SingleChildScrollView(
+        child: Column(
+      children: cards,
+    ));
   }
 
   void _saveBoardTask() {

@@ -11,7 +11,7 @@ class UseCaseBoard extends UseCaseBase implements IUseCaseBoard {
       remoteDataManager.getCurrentUser()!.id,
       boardName,
       boardDescription,
-    ));
+    )..dateCreated = DateTime.now());
   }
 
   @override

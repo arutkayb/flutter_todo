@@ -27,7 +27,9 @@ class _BoardScreenState extends State<BoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(_boardController.state.board.name),
+      ),
       body: SafeArea(
         child: BlocBuilder<BoardScreenBloc, BoardScreenState>(
           builder: (context, state) {

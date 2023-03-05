@@ -12,6 +12,7 @@ class Board {
 
   String name;
   String? description;
+  DateTime? dateCreated;
 
   Board(this.id, this.userId, this.name, [this.description]);
 

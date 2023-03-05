@@ -2,7 +2,7 @@ import 'package:flutter_starter/common/models/board.dart';
 
 class BoardScreenState {
   bool fetching;
-  Board? board;
+  Board board;
 
   BoardScreenState(this.board) : fetching = false;
 

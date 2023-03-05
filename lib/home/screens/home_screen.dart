@@ -83,6 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _getBoards(List<Board> boards) {
     List<Widget> widgets = List.empty(growable: true);
 
+    boards.sort((a, b) => a.dateCreated!.compareTo(b.dateCreated!) < 0 ? 1 : 0);
+
     if (boards.isEmpty) {
       widgets.add(SizedBox(
         height: MediaQuery.of(context).size.height,

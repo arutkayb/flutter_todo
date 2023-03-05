@@ -47,6 +47,7 @@ class _CustomTextInputWidgetState extends State<CustomTextInputWidget> {
     }
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: textFields,
     );
   }

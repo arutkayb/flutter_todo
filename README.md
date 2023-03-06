@@ -6,7 +6,7 @@
   different columns (e.g. "To Do", "In Progress", "Done").
 - [x] A timer function that allows users to start and stop tracking the time spent on each
   task.
-- [ ] A history of completed tasks, including the time spent on each task and the date it
+- [x] A history of completed tasks, including the time spent on each task and the date it
   was completed.
 - [ ] A way to export data to CSV file
 - [x] Cloud synchronization: Allow users to synchronize their tasks and time tracking data across

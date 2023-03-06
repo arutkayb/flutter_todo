@@ -10,7 +10,7 @@ String formatDate(DateTime dateTime) {
 }
 
 String formatDuration(Duration duration) {
-  return "~${printDuration(
+  return "~${prettyDuration(
     duration,
     abbreviated: true,
   )}";

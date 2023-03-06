@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
+import 'package:flutter_starter/common/models/board_task.dart';
 import 'package:flutter_starter/statistics/controllers/statistics_screen_cubit.dart';
 import 'package:flutter_starter/statistics/controllers/statistics_screen_state.dart';
+import 'package:flutter_starter/statistics/widgets/statistics_task_card.dart';
 import 'package:flutter_starter/utils/time_utils.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
@@ -63,7 +65,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     List<Widget> pageWidgets = List.empty(growable: true);
 
     pageWidgets.add(_getBoardStatistics());
-    pageWidgets.add(_getFinishedTasks());
+    pageWidgets.add(_getFinishedTasksWidget());
 
     return PageView(
       controller: _pageViewController,
@@ -113,8 +115,45 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         ));
   }
 
-  Widget _getFinishedTasks() {
-    return Container();
+  Widget _getFinishedTasksWidget() {
+    List<BoardTask> tasks = _getFinishedBoardTasks();
+
+    final noTasksFoundWidget =
+        Center(child: const Text("no_finished_tasks_found").tr());
+    if (tasks.isEmpty) {
+      return noTasksFoundWidget;
+    }
+
+    List<Widget>? taskList;
+
+    try {
+      taskList = tasks.map((task) => StatisticsTaskCard(task)).toList();
+    } catch (e) {
+      //ignore
+    }
+
+    final title = Center(child: const Text("finished_tasks", style: TextStyle(fontSize: 24.0),).tr(),);
+
+    return (taskList == null || taskList.isEmpty)
+        ? noTasksFoundWidget
+        : ListView(
+            children: [title,...taskList],
+          );
+  }
+
+  List<BoardTask> _getFinishedBoardTasks() {
+    List<BoardTask> tasks = List.empty(growable: true);
+    if (_controller.state.fullBoard.boardTasks != null &&
+        _controller.state.fullBoard.boardTasks!.isNotEmpty) {
+      try {
+        tasks.addAll(_controller.state.fullBoard.boardTasks!
+            .where((task) => task.dateEnd != null && task.dateStart != null)
+            .toList());
+      } catch (e) {
+        // ignore
+      }
+    }
+    return tasks;
   }
 
   @override

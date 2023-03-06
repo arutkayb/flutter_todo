@@ -1,24 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter/common/models/board_task.dart';
+import 'package:flutter_starter/utils/time_utils.dart';
 
-class BoardTaskCard extends StatelessWidget {
+class StatisticsTaskCard extends StatelessWidget {
   final BoardTask boardTask;
-  final Function() onTap;
 
-  const BoardTaskCard(this.boardTask, this.onTap, {Key? key}) : super(key: key);
+  const StatisticsTaskCard(this.boardTask, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final title = boardTask.title ?? "new_board_task".tr();
-    final description = boardTask.description;
+    final dateStart = formatDate(boardTask.dateStart!);
+    final dateEnd = formatDate(boardTask.dateEnd!);
+    final duration =
+        formatDuration(boardTask.dateEnd!.difference(boardTask.dateStart!));
+    final description =
+        "${'start_time'.tr()}: $dateStart\n${'end_time'.tr()}: $dateEnd\n${'task_duration'.tr()}: $duration";
 
     return Card(
       child: ListTile(
         leading: const Icon(Icons.task_outlined),
         title: Text(title),
-        subtitle: description == null ? null : Text(description),
-        onTap: onTap,
+        subtitle: Text(description),
       ),
     );
   }

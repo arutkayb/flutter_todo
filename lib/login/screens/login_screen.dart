@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter/common/models/user.dart';
 import 'package:flutter_starter/login/controllers/login_screen_cubit.dart';
 import 'package:flutter_starter/login/controllers/login_screen_state.dart';
+import 'package:flutter_starter/utils/connection_utils.dart';
 import 'package:flutter_starter/utils/dialog_utils.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -52,6 +54,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _checkLogin() async {
+    if (!(await checkInternetConnection())) {
+      showSafeConfirmationDialog(context,
+          title: 'failed'.tr(),
+          content: 'check_internet_connection'.tr(),
+          confirmButtonText: 'try_again'.tr(), confirmAction: () {
+        _checkLogin();
+      });
+      return;
+    }
+
     if (_controller.isLoggedIn()) {
       User? user = await _controller.createUser();
       // TODO: handle if not created

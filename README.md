@@ -22,7 +22,7 @@
   choosing from a selection of pre-defined color schemes.
 - [ ] Integration with third-party tools: Allow the app to integrate with other productivity
   tools such as calendars and task managers.
-- [x] Offline functionality: Allow the app to work offline and automatically synchronize
+- [ ] Offline functionality: Allow the app to work offline and automatically synchronize
   data when a connection is re-established.
 - [x] Multi-language support: Add support for different languages, this will make the app
   more accessible to a global audience.

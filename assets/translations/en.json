@@ -53,5 +53,8 @@
   "export_successful": "Export successful",
   "export_successful_description": "Data exported to",
   "downloads_folder": "Downloads Folder",
-  "refresh_board": "Refresh"
+  "refresh_board": "Refresh",
+  "confirm": "Confirm",
+  "check_internet_connection": "Check your internet connection",
+  "try_again": "Try again"
 }

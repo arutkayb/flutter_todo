@@ -32,11 +32,12 @@ void showSafeDialog(BuildContext context,
 void showSafeConfirmationDialog(BuildContext context,
     {required String title,
     required String content,
+    String? confirmButtonText,
     required Function confirmAction}) {
   Widget confirmButton = TextButton(
-    child: const Text(
-      "Confirm",
-      style: TextStyle(color: Colors.green),
+    child: Text(
+      confirmButtonText ?? "confirm".tr(),
+      style: const TextStyle(color: Colors.green),
     ),
     onPressed: () {
       Navigator.pop(context);

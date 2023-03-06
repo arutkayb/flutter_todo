@@ -43,31 +43,35 @@ class _BoardScreenState extends State<BoardScreen> {
       appBar: AppBar(
         title: Text(boardName),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                _boardController.add(FetchFullBoard());
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.refresh),
-                  const Text("refresh_board").tr(),
-                ],
+          FittedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  _boardController.add(FetchFullBoard());
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.refresh),
+                    const Text("refresh_board").tr(),
+                  ],
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: _showBoardStatistics,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.auto_graph),
-                  const Text("statistics").tr(),
-                ],
+          FittedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: _showBoardStatistics,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.auto_graph),
+                    const Text("statistics").tr(),
+                  ],
+                ),
               ),
             ),
           ),

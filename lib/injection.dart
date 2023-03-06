@@ -77,14 +77,15 @@ Future _configureReal({required String dataRootDirectory}) async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirebaseDatabase.instance.setPersistenceEnabled(true);
+  final FirebaseDatabase firebaseInstance = FirebaseDatabase.instance;
+  final DatabaseReference databaseRef = firebaseInstance.ref();
 
   final localDataManager = LocalDataManager();
   await localDataManager.initialize();
 
   locator.registerSingleton<ILocalDataManager>(localDataManager);
   locator.registerSingleton<IRemoteDataManager>(
-      RemoteDataManager(dataRootDirectory));
+      RemoteDataManager(dataRootDirectory, databaseRef));
 
   locator.registerSingleton<IUseCaseAnalytics>(
     UseCaseAnalytics(),

@@ -16,9 +16,8 @@ class RemoteDataManager implements IRemoteDataManager {
   final DatabaseReference _ref;
   final RemoteDataPathUtil _remoteDataPathUtil;
 
-  RemoteDataManager(String rootDirectory)
-      : _ref = FirebaseDatabase.instance.ref(),
-        _remoteDataPathUtil = RemoteDataPathUtil(rootDirectory);
+  RemoteDataManager(String rootDirectory, this._ref)
+      : _remoteDataPathUtil = RemoteDataPathUtil(rootDirectory);
 
   @override
   Future<void> removeDirectory(String directory) async {

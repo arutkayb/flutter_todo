@@ -7,8 +7,7 @@ import 'package:flutter_starter/home/controllers/board_controller/home_screen_bo
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_state.dart';
 import 'package:flutter_starter/injection.dart';
 
-class HomeScreenBoardBloc
-    extends Bloc<BoardEvent, HomeScreenBoardState> {
+class HomeScreenBoardBloc extends Bloc<BoardEvent, HomeScreenBoardState> {
   final IUseCaseBoard _useCaseBoard = locator.get<IUseCaseBoard>();
   final IUseCaseSettings _useCaseSettings = locator.get<IUseCaseSettings>();
 
@@ -29,7 +28,8 @@ class HomeScreenBoardBloc
     on<BoardCreated>((event, emit) async {
       // TODO: Do not fetch, just update the board with local value
       emit(HomeScreenBoardState.fetching(state, true));
-      await _createBoard(event.boardName, event.boardDescription); // TODO: Check for errors and notify the user
+      await _createBoard(event.boardName,
+          event.boardDescription); // TODO: Check for errors and notify the user
       final boards = await _fetchBoards();
       emit(HomeScreenBoardState.withBoards(boards));
     });
@@ -37,17 +37,19 @@ class HomeScreenBoardBloc
     on<BoardDeleted>((event, emit) async {
       // TODO: Do not fetch, just update the board with local value
       emit(HomeScreenBoardState.fetching(state, true));
-      await _deleteBoard(event.board); // TODO: Check for errors and notify the user
+      await _deleteBoard(
+          event.board); // TODO: Check for errors and notify the user
       final boards = await _fetchBoards();
       emit(HomeScreenBoardState.withBoards(boards));
     });
   }
 
-  Future<Board?> _createBoard(String boardName, String? boardDescription) async{
+  Future<Board?> _createBoard(
+      String boardName, String? boardDescription) async {
     return await _useCaseBoard.createBoard(boardName, boardDescription);
   }
 
-  Future<bool?> _deleteBoard(Board board) async{
+  Future<bool?> _deleteBoard(Board board) async {
     return await _useCaseBoard.deleteBoard(board.id);
   }
 
@@ -57,10 +59,14 @@ class HomeScreenBoardBloc
 
   Future<bool> switchTheme() async {
     AppTheme currentTheme = _useCaseSettings.getAppTheme();
-    if(currentTheme.index == 0){
+    if (currentTheme.index == 0) {
       return _useCaseSettings.saveAppTheme(AppTheme.secondary);
     } else {
       return _useCaseSettings.saveAppTheme(AppTheme.primary);
     }
+  }
+
+  Future<String> exportData() async {
+    return _useCaseSettings.exportDataAsJsonString();
   }
 }

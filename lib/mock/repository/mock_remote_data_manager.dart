@@ -211,4 +211,10 @@ class MockRemoteDataManager implements IRemoteDataManager {
     throw UnimplementedError();
   }
 
+  @override
+  Future<Map> exportData() {
+    // TODO: implement exportData
+    throw UnimplementedError();
+  }
+
 }

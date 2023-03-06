@@ -15,6 +15,7 @@ import 'package:flutter_starter/home/controllers/login_controller/home_screen_lo
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_state.dart';
 import 'package:flutter_starter/home/widgets/board_card.dart';
 import 'package:flutter_starter/utils/dialog_utils.dart';
+import 'package:flutter_starter/utils/file_utils.dart';
 import 'package:flutter_starter/utils/navigation_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -81,8 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context) {
         return [
           PopupMenuItem(
-            onTap: _exportCsv,
-            child: const Text("export_csv").tr(),
+            onTap: _exportJson,
+            child: const Text("export_json").tr(),
           ),
           PopupMenuItem(
             onTap: _onSwitchTheme,
@@ -101,8 +102,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _exportCsv() {
-    // TODO:
+  Future<void> _exportJson() async {
+    String res = await _boardController.exportData();
+    try {
+      String path = await saveStringAsFile(res);
+
+      showSafeDialog(context,
+          title: "export_successful".tr(),
+          content: "${'export_successful_description'.tr()}:'$path'");
+    } catch (e) {
+      showSafeDialog(context, title: "failed".tr(), content: e.toString());
+    }
   }
 
   void _onSwitchTheme() async {

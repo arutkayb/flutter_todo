@@ -8,7 +8,7 @@
   task.
 - [x] A history of completed tasks, including the time spent on each task and the date it
   was completed.
-- [ ] A way to export data to CSV file
+- [ ] A way to export data to JSON file
 - [x] Cloud synchronization: Allow users to synchronize their tasks and time tracking data across
   multiple devices using Firebase.
 - [x] Analytics: Implement analytics to track how users are using the app and identify
@@ -17,6 +17,7 @@
   them know when a task has been completed.
 - [x] Collaboration: Allow multiple users to work on a task simultaneously and track their
   progress in real-time.
+- [ ] Restriction for users: users logged-in with same email domain will see common boards.
 - [x] Customizable themes: Allow users to customize the look and feel of the app by
   choosing from a selection of pre-defined color schemes.
 - [ ] Integration with third-party tools: Allow the app to integrate with other productivity

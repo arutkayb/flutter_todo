@@ -36,8 +36,7 @@
   "add_new_comment": "Add new comment",
   "new_comment": "New comment",
   "statistics": "Statistics",
-  "export_csv": "Export csv",
-  "import_csv": "Import csv",
+  "export_json": "Export JSON",
   "switch_theme": "Switch Theme",
   "warning": "Warning",
   "warning_empty_board_statistics": "You have to add tasks to see statistics",
@@ -48,5 +47,10 @@
   "started_not_finished_task_count_text": "Started but not finished tasks",
   "unknown": "unknown",
   "no_finished_tasks_found": "No finished tasks found",
-  "finished_tasks": "Finished tasks"
+  "finished_tasks": "Finished tasks",
+  "failed": "Failed",
+  "export_dir_not_available": "Export directory is not accessible",
+  "export_successful": "Export successful",
+  "export_successful_description": "Data exported to",
+  "refresh_board": "Refresh"
 }

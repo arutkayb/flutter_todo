@@ -27,6 +27,84 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
+  Future<Map<String, dynamic>> exportData() async {
+    Map<String, dynamic> res = {
+      _remoteDataPathUtil.boardsDirectory: await _fetchAllBoards(),
+      _remoteDataPathUtil.boardTaskCommentsDirectory:
+          await _fetchAllBoardTaskComments(),
+      _remoteDataPathUtil.boardTaskAlarmsDirectory:
+          await _fetchAllBoardTaskAlarms(),
+      _remoteDataPathUtil.usersDirectory: await _fetchAllUsers()
+    };
+
+    return res;
+  }
+
+  Future<Map<dynamic, dynamic>> _fetchAllBoards() async {
+    final ref = _ref.child(_remoteDataPathUtil.boardsDirectory);
+
+    try {
+      final snapshot = await ref.get();
+
+      if (snapshot.exists && snapshot.children.isNotEmpty) {
+        return snapshot.value as Map<dynamic, dynamic>;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return {};
+  }
+
+  Future<Map<dynamic, dynamic>> _fetchAllBoardTaskComments() async {
+    final ref = _ref.child(_remoteDataPathUtil.boardTaskCommentsDirectory);
+
+    try {
+      final snapshot = await ref.get();
+
+      if (snapshot.exists && snapshot.children.isNotEmpty) {
+        return snapshot.value as Map<dynamic, dynamic>;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return {};
+  }
+
+  Future<Map<dynamic, dynamic>> _fetchAllBoardTaskAlarms() async {
+    final ref = _ref.child(_remoteDataPathUtil.boardTaskAlarmsDirectory);
+
+    try {
+      final snapshot = await ref.get();
+
+      if (snapshot.exists && snapshot.children.isNotEmpty) {
+        return snapshot.value as Map<dynamic, dynamic>;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return {};
+  }
+
+  Future<Map<dynamic, dynamic>> _fetchAllUsers() async {
+    final ref = _ref.child(_remoteDataPathUtil.usersDirectory);
+
+    try {
+      final snapshot = await ref.get();
+
+      if (snapshot.exists && snapshot.children.isNotEmpty) {
+        return snapshot.value as Map<dynamic, dynamic>;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return {};
+  }
+
+  @override
   Future<User> createUser(User user) async {
     final ref = _ref.child(_remoteDataPathUtil.getUserPath(user.id));
     await ref.set(user.toJson());

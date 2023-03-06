@@ -8,6 +8,8 @@ import 'package:flutter_starter/common/models/user.dart';
 abstract class IRemoteDataManager {
   Future<void> removeDirectory(String directory);
 
+  Future<Map<dynamic, dynamic>> exportData();
+
   // User
   Future<User> createUser(User user);
 

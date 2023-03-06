@@ -14,4 +14,10 @@ class MockUseCaseSettings extends UseCaseBase implements IUseCaseSettings {
     // TODO: implement saveAppTheme
     throw UnimplementedError();
   }
+
+  @override
+  Future<String> exportDataAsJsonString() {
+    // TODO: implement exportData
+    throw UnimplementedError();
+  }
 }

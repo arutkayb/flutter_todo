@@ -10,12 +10,12 @@ class RemoteDataPathUtil {
   RemoteDataPathUtil(String? rootDirectory)
       : _rootDirectory = rootDirectory ?? "";
 
-  String _getRootDirectory() {
+  String getRootDirectory() {
     return _rootDirectory != null ? "$_rootDirectory/" : "";
   }
 
   String getUsersPath() {
-    return "${_getRootDirectory()}$usersDirectory/";
+    return "${getRootDirectory()}$usersDirectory/";
   }
 
   String getUserPath(String userId) {
@@ -23,7 +23,7 @@ class RemoteDataPathUtil {
   }
 
   String getBoardsPath() {
-    return "${_getRootDirectory()}$boardsDirectory/";
+    return "${getRootDirectory()}$boardsDirectory/";
   }
 
   String getBoardPath(String boardId) {
@@ -47,7 +47,7 @@ class RemoteDataPathUtil {
   }
 
   String getBoardTaskAlarmsPath(String boardId, String boardTaskId) {
-    return "${_getRootDirectory()}$boardTaskAlarmsDirectory/$boardId/$boardTaskId/";
+    return "${getRootDirectory()}$boardTaskAlarmsDirectory/$boardId/$boardTaskId/";
   }
 
   String getBoardTaskAlarmPath(
@@ -56,7 +56,7 @@ class RemoteDataPathUtil {
   }
 
   String getBoardTaskCommentsPath(String boardId, String boardTaskId) {
-    return "${_getRootDirectory()}$boardTaskCommentsDirectory/$boardId/$boardTaskId/";
+    return "${getRootDirectory()}$boardTaskCommentsDirectory/$boardId/$boardTaskId/";
   }
 
   String getBoardTaskCommentPath(

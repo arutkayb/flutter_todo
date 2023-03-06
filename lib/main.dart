@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_starter/common/configs/app_theme.dart';
+import 'package:flutter_starter/common/repository/use_cases/settings/i_use_case_settings.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_bloc.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_state.dart';
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_bloc.dart';
@@ -19,25 +21,32 @@ void main() async {
   await configureDependencies();
 
   runApp(
-    EasyLocalization(
+    Phoenix(
+      child: EasyLocalization(
         supportedLocales: const [Locale('en')],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
-        child: const MyApp()),
+        child: MyApp(),
+      ),
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final IUseCaseSettings _useCaseSettings = locator.get<IUseCaseSettings>();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppTheme theme = _useCaseSettings.getAppTheme();
+
     return MaterialApp(
       title: 'app_title'.tr(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      theme: primaryTheme,
+      theme: theme == AppTheme.secondary ? secondaryTheme : primaryTheme,
       initialRoute: '/login',
       routes: {
         '/login': (context) {

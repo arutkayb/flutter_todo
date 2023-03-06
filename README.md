@@ -17,7 +17,7 @@
   them know when a task has been completed.
 - [x] Collaboration: Allow multiple users to work on a task simultaneously and track their
   progress in real-time.
-- [ ] Customizable themes: Allow users to customize the look and feel of the app by
+- [x] Customizable themes: Allow users to customize the look and feel of the app by
   choosing from a selection of pre-defined color schemes.
 - [ ] Integration with third-party tools: Allow the app to integrate with other productivity
   tools such as calendars and task managers.

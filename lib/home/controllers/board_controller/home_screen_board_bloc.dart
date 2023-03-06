@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_starter/common/configs/app_theme.dart';
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
+import 'package:flutter_starter/common/repository/use_cases/settings/i_use_case_settings.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_event.dart';
 import 'package:flutter_starter/home/controllers/board_controller/home_screen_board_state.dart';
 import 'package:flutter_starter/injection.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_starter/injection.dart';
 class HomeScreenBoardBloc
     extends Bloc<BoardEvent, HomeScreenBoardState> {
   final IUseCaseBoard _useCaseBoard = locator.get<IUseCaseBoard>();
+  final IUseCaseSettings _useCaseSettings = locator.get<IUseCaseSettings>();
 
   HomeScreenBoardBloc(super.initialState) {
     on<FetchBoardsTriggered>((event, emit) async {
@@ -48,8 +51,16 @@ class HomeScreenBoardBloc
     return await _useCaseBoard.deleteBoard(board.id);
   }
 
-
   Future<List<Board>> _fetchBoards() async {
     return await _useCaseBoard.fetchBoards();
+  }
+
+  Future<bool> switchTheme() async {
+    AppTheme currentTheme = _useCaseSettings.getAppTheme();
+    if(currentTheme.index == 0){
+      return _useCaseSettings.saveAppTheme(AppTheme.secondary);
+    } else {
+      return _useCaseSettings.saveAppTheme(AppTheme.primary);
+    }
   }
 }

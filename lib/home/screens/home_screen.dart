@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:flutter_starter/common/widgets/custom_text_input_widget.dart';
@@ -92,6 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Text("import_csv").tr(),
           ),
           PopupMenuItem(
+            onTap: _onSwitchTheme,
+            child: const Text("switch_theme").tr(),
+          ),
+          PopupMenuItem(
             onTap: _logout,
             child: const Text(
               "log_out",
@@ -114,6 +119,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _importCsv() {
     // TODO:
+  }
+
+  void _onSwitchTheme() async {
+    final bool res = await _boardController.switchTheme();
+    if (res) {
+      if (context.mounted) {
+        Phoenix.rebirth(context);
+      }
+    }
   }
 
   Widget _getBoards(List<Board> boards) {

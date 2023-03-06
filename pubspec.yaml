@@ -21,6 +21,8 @@ dependencies:
   page_view_dot_indicator: ^2.1.0
   flutter_datetime_picker: ^1.5.1
   duration: ^3.0.12
+  shared_preferences: ^2.0.18
+  flutter_phoenix: ^1.1.0
 
   firebase_ui_auth: 1.1.14
   firebase_auth: 4.2.9

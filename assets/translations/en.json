@@ -37,5 +37,6 @@
   "new_comment": "New comment",
   "statistics": "Statistics",
   "export_csv": "Export csv",
-  "import_csv": "Import csv"
+  "import_csv": "Import csv",
+  "switch_theme": "Switch Theme"
 }

@@ -108,7 +108,7 @@ class _BoardScreenState extends State<BoardScreen> {
     if (_boardController.state.fullBoard.boardTasks == null ||
         _boardController.state.fullBoard.boardTasks!.isEmpty) {
       showSafeDialog(context,
-          title: 'warning'.tr(), content: 'warning_empty_board_statistics');
+          title: 'warning'.tr(), content: 'warning_empty_board_statistics'.tr());
     } else {
       NavigationUtils.navigateToBoardStatistics(
           context, _boardController.state.fullBoard);

@@ -8,7 +8,7 @@
   task.
 - [x] A history of completed tasks, including the time spent on each task and the date it
   was completed.
-- [ ] A way to export data to JSON file
+- [x] A way to export data to JSON file
 - [x] Cloud synchronization: Allow users to synchronize their tasks and time tracking data across
   multiple devices using Firebase.
 - [x] Analytics: Implement analytics to track how users are using the app and identify

@@ -1,24 +1,23 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:document_file_save_plus/document_file_save_plus.dart';
 
 Future<String> saveStringAsFile(String content) async {
-  Directory? downloadsDir = await getDownloadsDirectory();
-  if (downloadsDir == null) {
-    throw Exception('export_dir_not_available'.tr());
-  }
-  String downloadsDirPath = downloadsDir.path;
-
-  final fullPath = "$downloadsDirPath/${generateUid()}.txt";
-
+  final fileName = "${generateUid()}.txt";
   try {
-    final file = File(fullPath);
-    await file.writeAsString(content);
+    List<int> textBytes = utf8.encode(content);
+    Uint8List textBytes1 = Uint8List.fromList(textBytes);
+
+    final documentFileSave = DocumentFileSavePlus();
+    await documentFileSave.saveFile(textBytes1, fileName, "text/plain");
   } catch (e) {
     throw Exception('export_dir_not_available'.tr());
   }
 
-  return fullPath;
+  final extraNotes = Platform.isAndroid ? 'downloads_folder'.tr() : "";
+  return "$extraNotes $fileName";
 }

@@ -52,5 +52,6 @@
   "export_dir_not_available": "Export directory is not accessible",
   "export_successful": "Export successful",
   "export_successful_description": "Data exported to",
+  "downloads_folder": "Downloads Folder",
   "refresh_board": "Refresh"
 }

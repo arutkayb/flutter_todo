@@ -27,13 +27,23 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> createUserWithEmail(String email, String password) async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  Future<User> createUser(User user) async {
+    final ref = _ref.child(_remoteDataPathUtil.getUserPath(user.id));
+    await ref.set(user.toJson());
+
+    return user;
+  }
+
+  @override
+  Future<User> createUserWithEmail(String email, String password) async {
+    final userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
 
-    return true;
+    return await createUser(
+        User(userCredential.user!.uid, userCredential.user!.email));
   }
 
   @override
@@ -77,6 +87,30 @@ class RemoteDataManager implements IRemoteDataManager {
   }
 
   @override
+  Future<List<User>> getUsers() async {
+    final ref = _ref.child(_remoteDataPathUtil.getUsersPath());
+
+    try {
+      final snapshot = await ref.get();
+
+      if (snapshot.exists && snapshot.children.isNotEmpty) {
+        final List<User> list = List.empty(growable: true);
+        for (var element in snapshot.children) {
+          final user = User.fromJson(getMapFromSnapshot(element));
+
+          list.add(user);
+        }
+        return list;
+      } else {
+        return List.empty();
+      }
+    } catch (e) {
+      print(e.toString());
+      return List.empty();
+    }
+  }
+
+  @override
   Future<Board?> createBoard(Board board) async {
     final ref = _ref.child(_remoteDataPathUtil.getBoardPath(board.id));
     await ref.set(board.toJson());
@@ -96,10 +130,7 @@ class RemoteDataManager implements IRemoteDataManager {
         for (var element in snapshot.children) {
           final board = Board.fromJson(getMapFromSnapshot(element));
 
-          // get current user's boards
-          if (getCurrentUser()!.id == board.userId) {
-            list.add(board);
-          }
+          list.add(board);
         }
         return list;
       } else {
@@ -284,9 +315,7 @@ class RemoteDataManager implements IRemoteDataManager {
     final ref = _ref.child(
         _remoteDataPathUtil.getBoardTaskCommentsPath(boardId, boardTaskId));
 
-    // get current user's boards task comments
-    Query query = ref.orderByChild("userId").equalTo(getCurrentUser()!.id);
-    final snapshot = await query.get();
+    final snapshot = await ref.get();
 
     if (snapshot.exists && snapshot.children.isNotEmpty) {
       final List<BoardTaskComment> list = List.empty(growable: true);

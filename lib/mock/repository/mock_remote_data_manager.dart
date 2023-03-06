@@ -38,7 +38,7 @@ class MockRemoteDataManager implements IRemoteDataManager {
   }
 
   @override
-  Future<bool> createUserWithEmail(String email, String password) {
+  Future<User> createUserWithEmail(String email, String password) {
     // TODO: implement createUserWithEmail
     throw UnimplementedError();
   }
@@ -196,6 +196,18 @@ class MockRemoteDataManager implements IRemoteDataManager {
   @override
   Future<BoardTaskComment?> updateBoardTaskComment(BoardTaskComment boardTaskComment) {
     // TODO: implement updateBoardTaskComment
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<User> createUser(User user) {
+    // TODO: implement createUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<User>> getUsers() {
+    // TODO: implement getUsers
     throw UnimplementedError();
   }
 

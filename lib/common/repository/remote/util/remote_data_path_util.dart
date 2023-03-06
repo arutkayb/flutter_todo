@@ -1,4 +1,5 @@
 class RemoteDataPathUtil {
+  final usersDirectory = "users";
   final boardsDirectory = "boards";
   final boardListsDirectory = "boardLists";
   final boardTasksDirectory = "boardTasks";
@@ -11,6 +12,14 @@ class RemoteDataPathUtil {
 
   String _getRootDirectory() {
     return _rootDirectory != null ? "$_rootDirectory/" : "";
+  }
+
+  String getUsersPath() {
+    return "${_getRootDirectory()}$usersDirectory/";
+  }
+
+  String getUserPath(String userId) {
+    return "${getUsersPath()}$userId";
   }
 
   String getBoardsPath() {

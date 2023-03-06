@@ -13,6 +13,7 @@ import 'package:flutter_starter/board_task/controllers/board_task_controller/boa
 import 'package:flutter_starter/board_task/controllers/task_comment_controller/task_comment_bloc.dart';
 import 'package:flutter_starter/board_task/controllers/task_comment_controller/task_comment_event.dart';
 import 'package:flutter_starter/board_task/controllers/task_comment_controller/task_comment_state.dart';
+import 'package:flutter_starter/board_task/models/extended_board_task_comment.dart';
 import 'package:flutter_starter/board_task/widgets/comment_card.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
 import 'package:flutter_starter/common/models/board_task_comment.dart';
@@ -321,7 +322,7 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
     return Container(); // TODO:
   }
 
-  Widget _getTaskComments(List<BoardTaskComment>? comments) {
+  Widget _getTaskComments(List<ExtendedBoardTaskComment>? extendedComments) {
     final addNewComment = Center(
       child: Container(
         padding: const EdgeInsets.all(10),
@@ -366,14 +367,17 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
 
     List<Widget>? cards = List.empty(growable: true);
     cards.add(addNewComment);
+    if (extendedComments != null && extendedComments.isNotEmpty) {
+      extendedComments.sort((a, b) => a.boardTaskComment.dateCreated!
+                  .compareTo(b.boardTaskComment.dateCreated!) <
+              0
+          ? 1
+          : 0);
 
-    if (comments != null && comments.isNotEmpty) {
-      comments
-          .sort((a, b) => a.dateCreated!.compareTo(b.dateCreated!) < 0 ? 1 : 0);
-
-      final commentCards = comments.map((comment) => CommentCard(comment, () {
-            _taskCommentController.add(DeleteTaskComment(comment));
-          }));
+      final commentCards =
+          extendedComments.map((comment) => CommentCard(comment, () {
+                _taskCommentController.add(DeleteTaskComment(comment.boardTaskComment));
+              }));
 
       cards.addAll(commentCards);
     }

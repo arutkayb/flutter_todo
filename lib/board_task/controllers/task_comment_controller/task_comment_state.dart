@@ -1,8 +1,8 @@
-import 'package:flutter_starter/common/models/board_task_comment.dart';
+import 'package:flutter_starter/board_task/models/extended_board_task_comment.dart';
 
 class TaskCommentState {
   bool fetching;
-  List<BoardTaskComment>? comments;
+  List<ExtendedBoardTaskComment>? comments;
 
   TaskCommentState([this.comments]) : fetching = false;
 

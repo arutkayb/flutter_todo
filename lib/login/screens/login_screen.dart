@@ -1,7 +1,7 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_starter/common/widgets/custom_circular_progress_indicator.dart';
+import 'package:flutter_starter/common/models/user.dart';
 import 'package:flutter_starter/login/controllers/login_screen_cubit.dart';
 import 'package:flutter_starter/login/controllers/login_screen_state.dart';
 import 'package:flutter_starter/utils/dialog_utils.dart';
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 EmailAuthProvider(),
               ],
               actions: [
-                AuthStateChangeAction<SigningUp>((context, authState) {
+                AuthStateChangeAction<SigningUp>((context, authState) async {
                   _signUpAction();
                 }),
                 AuthStateChangeAction<SignedIn>((context, authState) {
@@ -51,8 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _checkLogin() {
+  void _checkLogin() async {
     if (_controller.isLoggedIn()) {
+      User? user = await _controller.createUser();
+      // TODO: handle if not created
+
       Navigator.pushReplacementNamed(context, '/home');
     }
   }

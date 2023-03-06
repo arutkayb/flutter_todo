@@ -1,39 +1,47 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/common/models/board_task_comment.dart';
+import 'package:flutter_starter/board_task/models/extended_board_task_comment.dart';
 import 'package:flutter_starter/utils/time_utils.dart';
 
 class CommentCard extends StatelessWidget {
-  final BoardTaskComment boardTaskComment;
+  final ExtendedBoardTaskComment extendedBoardTaskComment;
   final Function() onDeleteTap;
   final _controller = TextEditingController();
 
-  CommentCard(this.boardTaskComment, this.onDeleteTap, {Key? key})
+  CommentCard(this.extendedBoardTaskComment, this.onDeleteTap, {Key? key})
       : super(key: key) {
-    _controller.text = boardTaskComment.content ?? "";
+    _controller.text = extendedBoardTaskComment.boardTaskComment.content ?? " ";
   }
 
   @override
   Widget build(BuildContext context) {
+    final userEmail = extendedBoardTaskComment.commentUser?.email ?? "";
+
+    final date = extendedBoardTaskComment.boardTaskComment.dateCreated != null
+        ? formatDate(extendedBoardTaskComment.boardTaskComment.dateCreated!)
+        : "";
     return Card(
-      child: ListTile(
-        trailing: IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: () {
-            onDeleteTap();
-          },
-        ),
-        title: TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            labelText: boardTaskComment.dateCreated != null
-                ? formatDate(boardTaskComment.dateCreated!)
-                : null,
-            border: InputBorder.none
+      child: Column(
+        children: [
+          ListTile(
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                onDeleteTap();
+              },
+            ),
+            title: TextField(
+              controller: _controller,
+              decoration:
+                  InputDecoration(labelText: date, border: InputBorder.none),
+              readOnly: true,
+              maxLines: null,
+            ),
           ),
-          readOnly: true,
-          maxLines: null,
-        ),
+          Align(alignment: Alignment.centerRight, child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(userEmail, style: const TextStyle(fontSize: 10),),
+          )),
+        ],
       ),
     );
   }

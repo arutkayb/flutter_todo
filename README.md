@@ -15,7 +15,7 @@
   areas for improvement.
 - [ ] Notifications: Add push notifications to remind users of upcoming tasks or to let
   them know when a task has been completed.
-- [ ] Collaboration: Allow multiple users to work on a task simultaneously and track their
+- [x] Collaboration: Allow multiple users to work on a task simultaneously and track their
   progress in real-time.
 - [ ] Customizable themes: Allow users to customize the look and feel of the app by
   choosing from a selection of pre-defined color schemes.

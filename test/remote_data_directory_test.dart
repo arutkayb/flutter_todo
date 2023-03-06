@@ -7,6 +7,22 @@ void main() {
 
   final remoteDataPathUtil = RemoteDataPathUtil(randomDataRootDirectory);
 
+  test('getUsersPath', () {
+    final expectedPath = "$randomDataRootDirectory/users/";
+    final usersPath = remoteDataPathUtil.getUsersPath();
+
+    assert(usersPath == expectedPath);
+  });
+
+  test('getUserPath', () {
+    final userId = generateUid();
+
+    final expectedPath = "$randomDataRootDirectory/users/$userId";
+    final userPath = remoteDataPathUtil.getUserPath(userId);
+
+    assert(userPath == expectedPath);
+  });
+
   test('getBoardsPath', () {
     final expectedPath = "$randomDataRootDirectory/boards/";
     final boardPath = remoteDataPathUtil.getBoardsPath();

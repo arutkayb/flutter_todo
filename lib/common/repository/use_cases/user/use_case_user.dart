@@ -19,7 +19,7 @@ class UseCaseUser extends UseCaseBase implements IUseCaseUser {
   }
 
   @override
-  Future<bool> createUserWithEmail(String email, String password) {
+  Future<User> createUserWithEmail(String email, String password) {
     return remoteDataManager.createUserWithEmail(email, password);
   }
 
@@ -31,5 +31,15 @@ class UseCaseUser extends UseCaseBase implements IUseCaseUser {
   @override
   Future<bool> signInWithEmail(String email, String password) {
     return remoteDataManager.signInWithEmail(email, password);
+  }
+
+  @override
+  Future<User> createUser(User user) {
+    return remoteDataManager.createUser(user);
+  }
+
+  @override
+  Future<List<User>> getUsers() {
+    return remoteDataManager.getUsers();
   }
 }

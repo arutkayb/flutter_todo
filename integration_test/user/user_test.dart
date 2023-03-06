@@ -17,7 +17,9 @@ void main() async {
     test("User created, signed in, deleted", () async {
       final created =
           await useCaseUser.createUserWithEmail(testUserEmail, '123456');
-      assert(created);
+
+      final users = await useCaseUser.getUsers();
+      users.firstWhere((user) => user.id == created.id);
 
       final signedIn =
           await useCaseUser.signInWithEmail(testUserEmail, '123456');

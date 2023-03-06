@@ -62,7 +62,7 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
     _taskLabelName = _boardTaskController.state.boardTask.label?.name;
 
     _startTime = _boardTaskController.state.boardTask.dateStart;
-    _endTime = _boardTaskController.state.boardTask.dateStart;
+    _endTime = _boardTaskController.state.boardTask.dateEnd;
 
     _taskTitle = _boardTaskController.state.boardTask.title;
     _taskDescription = _boardTaskController.state.boardTask.description;
@@ -73,7 +73,7 @@ class _BoardTaskScreenState extends State<BoardTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_boardTaskController.state.boardTask?.title ?? ""),
+        title: Text(_boardTaskController.state.boardTask.title ?? ""),
         actions: [
           GestureDetector(
             onTap: _saveBoardTask,

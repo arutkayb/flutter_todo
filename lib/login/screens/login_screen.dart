@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_controller.isLoggedIn()) {
       User? user = await _controller.createUser();
       // TODO: handle if not created
-
+      _controller.signedIn();
       Navigator.pushReplacementNamed(context, '/home');
     }
   }

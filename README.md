@@ -11,7 +11,7 @@
 - [ ] A way to export data to CSV file
 - [x] Cloud synchronization: Allow users to synchronize their tasks and time tracking data across
   multiple devices using Firebase.
-- [ ] Analytics: Implement analytics to track how users are using the app and identify
+- [x] Analytics: Implement analytics to track how users are using the app and identify
   areas for improvement.
 - [ ] Notifications: Add push notifications to remind users of upcoming tasks or to let
   them know when a task has been completed.

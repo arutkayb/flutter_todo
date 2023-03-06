@@ -4,6 +4,8 @@ import 'package:flutter_starter/common/repository/local/i_local_data_manager.dar
 import 'package:flutter_starter/common/repository/local/local_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/remote_data_manager.dart';
+import 'package:flutter_starter/common/repository/use_cases/analytics/i_use_case_analytics.dart';
+import 'package:flutter_starter/common/repository/use_cases/analytics/use_case_analytics.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/use_case_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board_list/i_use_case_board_list.dart';
@@ -21,6 +23,7 @@ import 'package:flutter_starter/common/repository/use_cases/user/use_case_user.d
 import 'package:flutter_starter/firebase_options.dart';
 import 'package:flutter_starter/mock/repository/mock_local_data_manager.dart';
 import 'package:flutter_starter/mock/repository/mock_remote_data_manager.dart';
+import 'package:flutter_starter/mock/repository/mock_use_case_analytics.dart';
 import 'package:flutter_starter/mock/repository/mock_use_case_board.dart';
 import 'package:flutter_starter/mock/repository/mock_use_case_board_list.dart';
 import 'package:flutter_starter/mock/repository/mock_use_case_board_task.dart';
@@ -35,6 +38,10 @@ final locator = GetIt.instance;
 Future _configureMock() async {
   locator.registerSingleton<ILocalDataManager>(MockLocalDataManager());
   locator.registerSingleton<IRemoteDataManager>(MockRemoteDataManager());
+
+  locator.registerSingleton<IUseCaseAnalytics>(
+    MockUseCaseAnalytics(),
+  );
 
   locator.registerSingleton<IUseCaseSettings>(
     MockUseCaseSettings(),
@@ -78,6 +85,10 @@ Future _configureReal({required String dataRootDirectory}) async {
   locator.registerSingleton<ILocalDataManager>(localDataManager);
   locator.registerSingleton<IRemoteDataManager>(
       RemoteDataManager(dataRootDirectory));
+
+  locator.registerSingleton<IUseCaseAnalytics>(
+    UseCaseAnalytics(),
+  );
 
   locator.registerSingleton<IUseCaseSettings>(
     UseCaseSettings(),

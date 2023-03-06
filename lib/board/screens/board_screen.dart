@@ -42,6 +42,17 @@ class _BoardScreenState extends State<BoardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(boardName),
+        actions: [
+          GestureDetector(
+            onTap: _showBoardStatistics,
+            child: Row(
+              children: [
+                const Text("statistics").tr(),
+                const Icon(Icons.auto_graph),
+              ],
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: BlocBuilder<BoardScreenBloc, BoardScreenState>(
@@ -68,6 +79,17 @@ class _BoardScreenState extends State<BoardScreen> {
         ),
       ),
     );
+  }
+
+  void _showBoardStatistics() {
+    if (_boardController.state.fullBoard.boardTasks == null ||
+        _boardController.state.fullBoard.boardTasks!.isEmpty) {
+      showSafeDialog(context,
+          title: 'warning'.tr(), content: 'warning_empty_board_statistics');
+    } else {
+      NavigationUtils.navigateToBoardStatistics(
+          context, _boardController.state.fullBoard);
+    }
   }
 
   Widget _getBoardLists(List<BoardList>? boardLists) {

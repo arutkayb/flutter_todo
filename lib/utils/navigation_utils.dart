@@ -12,6 +12,9 @@ import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
 import 'package:flutter_starter/common/models/board_task.dart';
 import 'package:flutter_starter/common/models/full_board.dart';
+import 'package:flutter_starter/statistics/controllers/statistics_screen_cubit.dart';
+import 'package:flutter_starter/statistics/controllers/statistics_screen_state.dart';
+import 'package:flutter_starter/statistics/screens/statistics_screen.dart';
 
 class NavigationUtils {
   static Future<void> navigateToBoard(BuildContext context, Board board) async {
@@ -47,6 +50,21 @@ class NavigationUtils {
             )
           ],
           child: const BoardTaskScreen(),
+        ),
+      ),
+    );
+  }
+
+  static Future<void> navigateToBoardStatistics(
+      BuildContext context, FullBoard fullBoard) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (BuildContext context) => StatisticsScreenCubit(
+            StatisticsScreenState(fullBoard),
+          ),
+          child: const StatisticsScreen(),
         ),
       ),
     );

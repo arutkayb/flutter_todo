@@ -81,16 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context) {
         return [
           PopupMenuItem(
-            onTap: _showStatistics,
-            child: const Text("statistics").tr(),
-          ),
-          PopupMenuItem(
             onTap: _exportCsv,
             child: const Text("export_csv").tr(),
-          ),
-          PopupMenuItem(
-            onTap: _importCsv,
-            child: const Text("import_csv").tr(),
           ),
           PopupMenuItem(
             onTap: _onSwitchTheme,
@@ -109,15 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showStatistics() {
-    // TODO:
-  }
-
   void _exportCsv() {
-    // TODO:
-  }
-
-  void _importCsv() {
     // TODO:
   }
 

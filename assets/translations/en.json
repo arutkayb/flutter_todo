@@ -38,5 +38,12 @@
   "statistics": "Statistics",
   "export_csv": "Export csv",
   "import_csv": "Import csv",
-  "switch_theme": "Switch Theme"
+  "switch_theme": "Switch Theme",
+  "warning": "Warning",
+  "warning_empty_board_statistics": "You have to add tasks to see statistics",
+  "finished_task_count_text":  "Finished tasks",
+  "average_task_duration_text": "Average task duration",
+  "not_started_task_count_text":  "Not started tasks",
+  "started_not_finished_task_count_text": "Started but not finished tasks",
+  "unknown": "unknown"
 }

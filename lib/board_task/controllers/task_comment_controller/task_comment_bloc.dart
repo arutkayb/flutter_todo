@@ -6,7 +6,7 @@ import 'package:flutter_starter/common/models/board_task_comment.dart';
 import 'package:flutter_starter/common/models/user.dart';
 import 'package:flutter_starter/common/repository/use_cases/board_task_comment/i_use_case_board_task_comment.dart';
 import 'package:flutter_starter/common/repository/use_cases/user/i_use_case_user.dart';
-import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 
 class TaskCommentBloc extends Bloc<TaskCommentEvent, TaskCommentState> {
   final IUseCaseBoardTaskComment _useCaseBoardTaskComment =

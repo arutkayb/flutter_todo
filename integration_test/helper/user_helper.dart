@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter_starter/common/models/user.dart';
 import 'package:flutter_starter/common/repository/use_cases/user/i_use_case_user.dart';
-import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 
 IUseCaseUser useCaseUser = locator.get<IUseCaseUser>();
 const integrationTesterUser = "integration_tester@test.com";

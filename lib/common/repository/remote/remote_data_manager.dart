@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/models/board_list.dart';
@@ -10,14 +11,25 @@ import 'package:flutter_starter/common/models/user.dart';
 import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';
 import 'package:flutter_starter/common/repository/remote/util/firebase_util.dart';
 import 'package:flutter_starter/common/repository/remote/util/remote_data_path_util.dart';
+import 'package:flutter_starter/firebase_options.dart';
 
 class RemoteDataManager implements IRemoteDataManager {
   final dio = Dio();
-  final DatabaseReference _ref;
+  late final DatabaseReference _ref;
   final RemoteDataPathUtil _remoteDataPathUtil;
 
-  RemoteDataManager(String rootDirectory, this._ref)
+  RemoteDataManager(String rootDirectory)
       : _remoteDataPathUtil = RemoteDataPathUtil(rootDirectory);
+
+  @override
+  Future<void> initialize() async{
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    final FirebaseDatabase firebaseInstance = FirebaseDatabase.instance;
+    _ref = firebaseInstance.ref();
+  }
 
   @override
   Future<void> removeDirectory(String directory) async {

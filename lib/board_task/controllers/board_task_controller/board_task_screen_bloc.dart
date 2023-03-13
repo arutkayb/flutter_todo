@@ -4,7 +4,7 @@ import 'package:flutter_starter/board_task/controllers/board_task_controller/boa
 import 'package:flutter_starter/common/models/board_task.dart';
 import 'package:flutter_starter/common/models/task_label.dart';
 import 'package:flutter_starter/common/repository/use_cases/board_task/i_use_case_board_task.dart';
-import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 
 class BoardTaskScreenBloc extends Bloc<BoardTaskScreenEvent, BoardTaskScreenState> {
   final IUseCaseBoardTask _useCaseBoardTask = locator.get<IUseCaseBoardTask>();

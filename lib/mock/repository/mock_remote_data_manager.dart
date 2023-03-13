@@ -217,4 +217,10 @@ class MockRemoteDataManager implements IRemoteDataManager {
     throw UnimplementedError();
   }
 
+  @override
+  Future<void> initialize() {
+    // TODO: implement initialize
+    throw UnimplementedError();
+  }
+
 }

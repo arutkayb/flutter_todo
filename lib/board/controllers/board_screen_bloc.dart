@@ -5,7 +5,7 @@ import 'package:flutter_starter/common/models/board_list.dart';
 import 'package:flutter_starter/common/models/full_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board_list/i_use_case_board_list.dart';
-import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 
 class BoardScreenBloc extends Bloc<BoardScreenEvent, BoardScreenState> {

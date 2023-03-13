@@ -6,6 +6,8 @@ import 'package:flutter_starter/common/models/board_task_comment.dart';
 import 'package:flutter_starter/common/models/user.dart';
 
 abstract class IRemoteDataManager {
+  Future<void> initialize();
+
   Future<void> removeDirectory(String directory);
 
   Future<Map<dynamic, dynamic>> exportData();

@@ -1,5 +1,6 @@
 import 'package:flutter_starter/common/repository/remote/i_remote_data_manager.dart';
 import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 import 'package:flutter_starter/utils/string_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,7 +10,6 @@ Future<void> setupTestDependencies([bool loginIntegrationTester = true]) async {
   String testDirectory = 'test-${generateUid()}';
 
   await configureDependencies(
-    isMock: false,
     resetDependencies: true,
     dataRootDirectory: testDirectory,
   );

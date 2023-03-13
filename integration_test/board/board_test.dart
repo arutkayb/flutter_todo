@@ -1,6 +1,6 @@
 import 'package:flutter_starter/common/models/board.dart';
 import 'package:flutter_starter/common/repository/use_cases/board/i_use_case_board.dart';
-import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helper/board_helper.dart';

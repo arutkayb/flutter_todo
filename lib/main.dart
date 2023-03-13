@@ -10,6 +10,7 @@ import 'package:flutter_starter/home/controllers/login_controller/home_screen_lo
 import 'package:flutter_starter/home/controllers/login_controller/home_screen_login_state.dart';
 import 'package:flutter_starter/home/screens/home_screen.dart';
 import 'package:flutter_starter/injection.dart';
+import 'package:flutter_starter/locator.dart';
 import 'package:flutter_starter/login/controllers/login_screen_cubit.dart';
 import 'package:flutter_starter/login/controllers/login_screen_state.dart';
 import 'package:flutter_starter/login/screens/login_screen.dart';
